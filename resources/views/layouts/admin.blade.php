@@ -118,10 +118,10 @@
 					</a>
 					<div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="plans.html">Open Trades</a>
-							<a class="collapse-item" href="trade-history.html">Closed Trades</a>
-							<a class="collapse-item" href="trade-history.html">Plans</a>
-							<a class="collapse-item" href="trade-history.html">Coupon</a>
+							<a class="collapse-item" href="{{ route('admin.open-trades') }}">Open Trades</a>
+							<a class="collapse-item" href="{{ route('admin.closed-trades') }}">Closed Trades</a>
+							<a class="collapse-item" href="{{ route('admin.plans-settings') }}">Plans</a>
+							<a class="collapse-item" href="{{ route('admin.coupons') }}">Coupon</a>
 						</div>
 					</div>
 				</li>
@@ -135,8 +135,8 @@
 					</a>
 					<div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="plans.html">Transfer Logs</a>
-							<a class="collapse-item" href="trade-history.html">Referral Earnings</a>
+							<a class="collapse-item" href="{{ route('admin.transfer-logs') }}">Transfer Logs</a>
+							<a class="collapse-item" href="{{ route('admin.referal-earnings') }}">Referral Earnings</a>
 						</div>
 					</div>
 				</li>
@@ -158,8 +158,8 @@
 					</a>
 					<div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="plans.html">Articles</a>
-							<a class="collapse-item" href="trade-history.html">Category</a>
+							<a class="collapse-item" href="{{ route('admin.blog-articles') }}">Articles</a>
+							<a class="collapse-item" href="{{ route('admin.blog-categories') }}">Category</a>
 						</div>
 					</div>
 				</li>
@@ -173,30 +173,30 @@
 					</a>
 					<div id="collapse6" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="plans.html">Homepage</a>
-							<a class="collapse-item" href="trade-history.html">Logo & Favicon</a>
-							<a class="collapse-item" href="plans.html">Platform Review</a>
-							<a class="collapse-item" href="trade-history.html">Services</a>
-							<a class="collapse-item" href="plans.html">Team</a>
-							<a class="collapse-item" href="trade-history.html">Webpages</a>
-							<a class="collapse-item" href="plans.html">FAQs</a>
-							<a class="collapse-item" href="trade-history.html">Currency</a>
-							<a class="collapse-item" href="trade-history.html">Terms & Conditions</a>
-							<a class="collapse-item" href="trade-history.html">Privacy Policy</a>
-							<a class="collapse-item" href="trade-history.html">About Us</a>
-							<a class="collapse-item" href="trade-history.html">Social Links</a>
+							<a class="collapse-item" href="{{ route('admin.homepage') }}">Homepage</a>
+							<a class="collapse-item" href="{{ route('admin.logo-settings') }}">Logo & Favicon</a>
+							<a class="collapse-item" href="{{ route('admin.reviews') }}">Platform Review</a>
+							<a class="collapse-item" href="{{ route('admin.services') }}">Services</a>
+							<a class="collapse-item" href="{{ route('admin.team') }}">Team</a>
+							<a class="collapse-item" href="{{ route('admin.pages') }}">Webpages</a>
+							<a class="collapse-item" href="{{ route('admin.faqs') }}">FAQs</a>
+							<a class="collapse-item" href="{{ route('admin.currency') }}">Currency</a>
+							<a class="collapse-item" href="{{ route('admin.terms') }}">Terms & Conditions</a>
+							<a class="collapse-item" href="{{ route('admin.privacy-policy') }}">Privacy Policy</a>
+							<a class="collapse-item" href="{{ route('admin.about-us') }}">About Us</a>
+							<a class="collapse-item" href="{{ route('admin.social-links') }}">Social Links</a>
 						</div>
 					</div>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="settings.html">
+					<a class="nav-link" href="{{ route('admin.settings') }}">
 						<i class="fas fa-fw fa-table"></i>
 						<span>Settings</span></a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="tables.html">
+					<a class="nav-link" href="/admin/logout">
 						<i class="fas fa-fw fa-table"></i>
 						<span>Sign Out</span></a>
 				</li>
