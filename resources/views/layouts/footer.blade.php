@@ -23,7 +23,7 @@
 							<div class="menu">
 								<ul>
 									<li><a href="{{ route('faq') }}">FAQ</a></li>
-									<li><a href="{{ route('terms-of-services') }}">Terms of Services</a></li>
+									<li><a href="{{ route('terms') }}">Terms of Services</a></li>
 									<li><a href="{{ route('register') }}">Register</a></li>
 									<li><a href="{{ route('login') }}">Login</a></li>
 								</ul>
