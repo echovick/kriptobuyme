@@ -18,4 +18,14 @@ class TradeHistory extends Model
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}
+
+	/**
+	 * Get the plan that owns the TradeHistory
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function plan(): BelongsTo
+	{
+		return $this->belongsTo(User::class, 'plan_id');
+	}
 }

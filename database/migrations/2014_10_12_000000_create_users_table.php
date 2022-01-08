@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
 			$table->float('balance')->nullable()->default(00.0);
 			$table->float('profit')->nullable()->default(00.0);
 			$table->float('referal_bonus')->nullable()->default(00.0);
+			$table->float('trading_bonus')->nullable()->default(00.00);
 			$table->string('city');
 			$table->string('country');
 			$table->timestamp('email_verified_at')->nullable();

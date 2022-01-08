@@ -15,13 +15,15 @@ class CreateAdminBankDetailsTable extends Migration
 	{
 		Schema::create('admin_bank_details', function (Blueprint $table) {
 			$table->increments('id');
-			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+			$table->integer('admin_id')->unsigned();
 			$table->string('bank_name', 100)->nullable()->default('');
 			$table->string('bank_address', 100)->nullable()->default('');
 			$table->string('iban_code', 100)->nullable()->default('');
 			$table->string('swift_code', 100)->nullable()->default('');
 			$table->string('account_number', 100)->nullable()->default('');
 			$table->timestamps();
+
+			$table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
 		});
 	}
 

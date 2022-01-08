@@ -16,10 +16,12 @@ class CreateBlogArticlesTable extends Migration
 		Schema::create('blog_articles', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('blog_title', 100)->nullable()->default('');
-			$table->foreign('category_id')->references('id')->on('article_categories')->onDelete('cascade');
+			$table->integer('category_id')->unsigned();
 			$table->integer('views')->unsigned()->nullable()->default(0);
 			$table->string('status', 100)->nullable()->default('Published');
 			$table->timestamps();
+
+			$table->foreign('category_id')->references('id')->on('article_categories')->onDelete('cascade');
 		});
 	}
 

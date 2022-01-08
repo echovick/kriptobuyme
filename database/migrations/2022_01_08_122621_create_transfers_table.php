@@ -16,12 +16,15 @@ class CreateTransfersTable extends Migration
 		Schema::create('transfers', function (Blueprint $table) {
 			$table->increments('id');
 			$table->string('reference_id', 100)->nullable()->default('text');
-			$table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
-			$table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
+			$table->integer('sender_id')->unsigned();
+			$table->integer('receiver_id')->unsigned();
 			$table->float('amount')->nullable()->default(00.0);
 			$table->float('charge')->nullable()->default(00.0);
 			$table->string('status', 100)->nullable()->default('');
 			$table->timestamps();
+
+			$table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 
