@@ -15,16 +15,13 @@ class CreateDepositsTable extends Migration
 	{
 		Schema::create('deposits', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id');
 			$table->string('reference_id', 100)->nullable()->default('');
 			$table->float('amount')->nullable()->default(00.0);
-			$table->integer('deposit_method')->unsigned();
+			$table->integer('deposit_method');
 			$table->float('deposit_charge')->nullable()->default(00.0);
 			$table->string('status', 100)->nullable()->default('');
 			$table->timestamps();
-
-			$table->foreign('deposit_method')->references('id')->on('deposit_methods')->onDelete('cascade');
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

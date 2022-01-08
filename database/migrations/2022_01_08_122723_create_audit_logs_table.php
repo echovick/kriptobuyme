@@ -15,13 +15,11 @@ class CreateAuditLogsTable extends Migration
 	{
 		Schema::create('audit_logs', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id');
 			$table->string('reference_id', 100)->nullable()->default('');
 			$table->string('log', 100)->nullable()->default('');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id');
 			$table->timestamps();
-
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

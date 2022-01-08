@@ -15,12 +15,10 @@ class CreateUserWalletsTable extends Migration
 	{
 		Schema::create('user_wallets', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
+			$table->integer('user_id');
 			$table->string('wallet_type', 100)->nullable()->default('');
 			$table->string('wallet_address', 100)->nullable()->default('');
 			$table->timestamps();
-
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 
