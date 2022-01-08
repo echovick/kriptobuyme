@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DepositMethod;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -64,7 +65,11 @@ class AdminController extends Controller
 	}
 
 	public function showPaymentGatewaysPage(){
-		return view('admin.payment-gateways');
+		$depositMethods = DepositMethod::all();
+		
+		return view('admin.payment-gateways', [
+			'depositMethods' => $depositMethods,
+		]);
 	}
 
 	public function showBankTransferPage(){

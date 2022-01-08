@@ -82,4 +82,7 @@ Route::prefix('admin')->group(function() {
 	Route::get('/privacy-policy', [App\Http\Controllers\Auth\AdminController::class, 'showPrivacyPolicyPage'])->name('admin.privacy-policy');
 	Route::get('/about-us', [App\Http\Controllers\Auth\AdminController::class, 'showAboutPage'])->name('admin.about-us');
 	Route::get('/social-links', [App\Http\Controllers\Auth\AdminController::class, 'showSocialLinksPage'])->name('admin.social-links');
+
+	// Admin Post Routes
+	Route::post('/payment-gateways', [App\Http\Controllers\DepositMethodController::class, 'store'])->name('deposit-method.create');
 });
