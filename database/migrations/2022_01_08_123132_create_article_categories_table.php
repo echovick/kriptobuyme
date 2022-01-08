@@ -14,7 +14,9 @@ class CreateArticleCategoriesTable extends Migration
 	public function up()
 	{
 		Schema::create('article_categories', function (Blueprint $table) {
-			$table->id();
+			$table->increments('id');
+			$table->string('category_name', 100)->nullable()->default('');
+			$table->string('category_slug', 100)->nullable()->default('');
 			$table->timestamps();
 		});
 	}

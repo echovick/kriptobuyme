@@ -19,6 +19,10 @@ class CreateUsersTable extends Migration
 			$table->string('last_name');
 			$table->string('username');
 			$table->string('email')->unique();
+			$table->string('status', 100)->nullable()->default('Active');
+			$table->float('balance')->nullable()->default(00.0);
+			$table->float('profit')->nullable()->default(00.0);
+			$table->float('referal_bonus')->nullable()->default(00.0);
 			$table->string('city');
 			$table->string('country');
 			$table->timestamp('email_verified_at')->nullable();

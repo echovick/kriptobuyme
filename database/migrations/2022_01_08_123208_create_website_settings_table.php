@@ -14,7 +14,10 @@ class CreateWebsiteSettingsTable extends Migration
 	public function up()
 	{
 		Schema::create('website_settings', function (Blueprint $table) {
-			$table->id();
+			$table->increments('id');
+			$table->string('content_name', 100)->nullable()->default('');
+			$table->string('content_slug', 100)->nullable()->default('');
+			$table->longText('content')->nullable()->default('');
 			$table->timestamps();
 		});
 	}

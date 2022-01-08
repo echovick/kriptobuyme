@@ -14,7 +14,9 @@ class CreatePromotionalEmailsTable extends Migration
 	public function up()
 	{
 		Schema::create('promotional_emails', function (Blueprint $table) {
-			$table->id();
+			$table->increments('id');
+			$table->string('subject', 100)->nullable()->default('');
+			$table->string('message', 100)->nullable()->default('');
 			$table->timestamps();
 		});
 	}

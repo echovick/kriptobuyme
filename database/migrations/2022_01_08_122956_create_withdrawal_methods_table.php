@@ -14,7 +14,9 @@ class CreateWithdrawalMethodsTable extends Migration
 	public function up()
 	{
 		Schema::create('withdrawal_methods', function (Blueprint $table) {
-			$table->id();
+			$table->increments('id');
+			$table->string('name', 100)->nullable()->default('');
+			$table->string('status', 100)->nullable()->default('');
 			$table->timestamps();
 		});
 	}
