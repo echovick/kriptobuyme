@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class BlogArticle extends Model
 {
 	use HasFactory;
+
+	/**
+	 * Get the category that owns the BlogArticle
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function category(): BelongsTo
+	{
+		return $this->belongsTo(ArticleCategory::class, 'category_id');
+	}
 }

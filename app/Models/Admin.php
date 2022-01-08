@@ -41,4 +41,22 @@ class Admin extends Authenticatable
 	protected $casts = [
 		'email_verified_at' => 'datetime',
 	];
+
+	/**
+	 * Get the bank details associated with the admin.
+	 */
+	public function adminBankDetail()
+	{
+		return $this->hasOne(AdminBankDetail::class, 'admin_id');
+	}
+
+	/**
+	 * Get all of the coupons for the Admin
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function coupons(): HasMany
+	{
+		return $this->hasMany(Coupon::class, 'admin_id');
+	}
 }

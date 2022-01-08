@@ -30,4 +30,12 @@ class DepositMethod extends Model
 		'status',
 		'method_address',
 	];
+
+	/**
+	 * Get the deposits for this deposit method.
+	 */
+	public function deposit()
+	{
+		return $this->hasMany(Deposit::class, 'deposit_method');
+	}
 }
