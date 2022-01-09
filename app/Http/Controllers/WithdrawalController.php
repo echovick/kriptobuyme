@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Withdrawal;
+use App\Models\WithdrawalMethod;
+use App\Models\Deposit;
 use Illuminate\Http\Request;
 
 class WithdrawalController extends Controller
@@ -35,7 +37,41 @@ class WithdrawalController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		// Get user id
+		$user_id = auth()->user()->id;
+
+		// General Reference id
+		$ref_id = time() . rand(10*45, 100*98);
+
+		// Get withdrawal charge
+		$charge = 0.1 * $request->input('amount'); 
+
+		Withdrawal::create([
+			'reference_id' => $ref_id,
+			'charge' => $charge,
+			'user_id' => $user_id,
+			'amount' => $request->input('amount'),
+			'address_details' => $request->input('address_details'),
+			'withdrawal_method' => $request->input('withdrawal_method'),
+			'type' => $request->input('withdrawal_type'),
+			'status' => 'Pending',
+		]);
+
+		// Get all Deposits
+		$total_deposit = Deposit::where(['user_id' => $user_id, 'status' => 'Confirmed'])->sum('amount');
+		$pending_deposit = Deposit::where(['user_id' => $user_id, 'status' => 'Pending'])->sum('amount');
+
+		$user_withdrawals = Withdrawal::where('user_id', $user_id)->get();
+
+		$withdrawal_methods = WithdrawalMethod::all();
+
+		return view('user.withdrawal', [
+			'msg' => 'Created Successfully',
+			'user_withdrawals' => $user_withdrawals,
+			'total_deposit' => $total_deposit,
+			'pending_deposit' => $pending_deposit,
+			'withdrawal_methods' => $withdrawal_methods,
+		]);
 	}
 
 	/**

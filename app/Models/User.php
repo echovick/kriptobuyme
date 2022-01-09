@@ -51,7 +51,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function deposits(): HasMany
+	public function deposits()
 	{
 		return $this->hasMany(Deposit::class, 'user_id');
 	}
@@ -61,7 +61,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function withdrawals(): HasMany
+	public function withdrawals()
 	{
 		return $this->hasMany(Withdrawal::class, 'user_id');
 	}
@@ -71,7 +71,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function tradeHistories(): HasMany
+	public function tradeHistories()
 	{
 		return $this->hasMany(TradeHistory::class, 'user_id');
 	}
@@ -81,7 +81,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function transferSenders(): HasMany
+	public function transferSenders()
 	{
 		return $this->hasMany(Transfer::class, 'sender_id');
 	}
@@ -91,7 +91,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function transferReceivers(): HasMany
+	public function transferReceivers()
 	{
 		return $this->hasMany(Transfer::class, 'receiver_id');
 	}
@@ -101,7 +101,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function tickets(): HasMany
+	public function tickets()
 	{
 		return $this->hasMany(Ticket::class, 'user_id');
 	}
@@ -111,7 +111,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function auditLogs(): HasMany
+	public function auditLogs()
 	{
 		return $this->hasMany(AuditLog::class, 'user_id');
 	}
@@ -121,7 +121,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function messages(): HasMany
+	public function messages()
 	{
 		return $this->hasMany(Message::class, 'user_id');
 	}
@@ -131,7 +131,7 @@ class User extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function wallets(): HasMany
+	public function wallets()
 	{
 		return $this->hasMany(UserWallet::class, 'user_id');
 	}

@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Deposit;
+use App\Models\TradeHistory;
+use App\Models\User;
+use App\Models\Plan;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +32,40 @@ Route::get('privacy-policy', [App\Http\Controllers\PagesController::class, 'show
 // User Dqashboard Routes
 Route::prefix('dashboard')->group(function() {
 	Route::get('/', function () {
-		return view('user.index');
+		$user_id = auth()->user()->id;
+		// Get all Deposits
+		$total_deposit = Deposit::where(['id' => $user_id, 'status' => 'Confirmed'])->sum('amount');
+		$pending_deposit = Deposit::where(['id' => $user_id, 'status' => 'Pending'])->sum('amount');
+
+		// Get available profit
+		$available_profit = auth()->user()->profit;
+		$available_profit = $available_profit - $total_deposit;
+
+		// Get total profit
+		$total_profit = TradeHistory::where('id', $user_id)->sum('trade_profit');
+
+		// get referal amount
+		$referal_total = auth()->user()->referal_bonus;
+
+		// get trading bonus
+		$trading_bonus = auth()->user()->trading_bonus;
+
+		// get recent trades
+		$trades = TradeHistory::where('user_id', $user_id)->get();
+
+		// get top earners
+		$top_earners = User::orderBy('id', 'DESC')->get();
+
+		return view('user.index', [
+			'total_deposit' => $total_deposit,
+			'pending_deposit' => $pending_deposit,
+			'available_profit' => $available_profit,
+			'total_profit' => $total_profit,
+			'referal_total' => $referal_total,
+			'trading_bonus' => $trading_bonus,
+			'trades' => $trades,
+			'top_earners' => $top_earners,
+		]);
 	})->middleware(['auth'])->name('dashboard');
 
 	Route::get('/deposit', [App\Http\Controllers\Auth\RegisteredUserController::class, 'showUserDepositPage'])->name('user.deposit');
@@ -39,6 +77,11 @@ Route::prefix('dashboard')->group(function() {
 	Route::get('/settings', [App\Http\Controllers\Auth\RegisteredUserController::class, 'showSettingsPage'])->name('user.settings');
 	Route::get('/audit-logs', [App\Http\Controllers\Auth\RegisteredUserController::class, 'showAuditLogsPage'])->name('user.audit-logs');
 	Route::get('/referals', [App\Http\Controllers\Auth\RegisteredUserController::class, 'showReferalsPage'])->name('user.referals');
+
+	// POST Routes
+	Route::post('/deposit/preview', [App\Http\Controllers\DepositController::class, 'create'])->name('user.deposit.preview');
+	Route::post('/deposit/complete', [App\Http\Controllers\DepositController::class, 'store'])->name('user.deposit.create');
+	Route::post('/withdrawal', [App\Http\Controllers\WithdrawalController::class, 'store'])->name('user.withdrawal.create');
 });
 
 // Admin Routes

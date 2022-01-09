@@ -10,6 +10,20 @@ class Deposit extends Model
    use HasFactory;
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'user_id',
+		'reference_id',
+		'amount',
+		'deposit_method',
+		'deposit_charge',
+		'status',
+	];
+
+	/**
 	 * Get the deposit method that owns the deposit.
 	 */
 	public function depositMethod()
@@ -22,7 +36,7 @@ class Deposit extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function user(): BelongsTo
+	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}

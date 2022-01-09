@@ -10,11 +10,27 @@ class Withdrawal extends Model
 	use HasFactory;
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'reference_id',
+		'charge',
+		'user_id',
+		'amount',
+		'address_details',
+		'withdrawal_method',
+		'type',
+		'status',
+	];
+
+	/**
 	 * Get the withdrwalMethod that owns the Withdrawal
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function withdrwalMethod(): BelongsTo
+	public function withdrwalMethod()
 	{
 		return $this->belongsTo(WithdrawalMethod::class, 'withdrawal_method');
 	}
@@ -24,7 +40,7 @@ class Withdrawal extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function user(): BelongsTo
+	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuditLogsTable extends Migration
+class AddColumnsToWithdrawalTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -13,12 +13,9 @@ class CreateAuditLogsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('audit_logs', function (Blueprint $table) {
-			$table->increments('id');
-			$table->integer('user_id');
+		Schema::table('withdrawals', function (Blueprint $table) {
 			$table->string('reference_id', 100)->nullable()->default('');
-			$table->string('log', 100)->nullable()->default('');
-			$table->timestamps();
+			$table->float('charge')->nullable()->default(00.0);
 		});
 	}
 
@@ -29,6 +26,8 @@ class CreateAuditLogsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('audit_logs');
+		Schema::table('withdrawals', function (Blueprint $table) {
+			//
+		});
 	}
 }

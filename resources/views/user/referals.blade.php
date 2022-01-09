@@ -5,66 +5,23 @@
 	<div class="row mt-3">
 		<div class="col-md-8">
 			<div class="row">
-				<div class="col-md-6">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
+				@foreach ($user_referrals as $user_referral)
+					@php $trades = $user_referral->tradeHistories()->get(); @endphp
+					@foreach ($trades as $trade)
+					<div class="col-md-6">
+						<div class="card mb-4 py-3 border-bottom-primary">
+							<div class="card-body small">
+								<span class="txt-md font-weight-bold">#{{ $trade['reference_id'] }} </span><br><br>
+								User: {{ $trade->user->username }} <br>
+								Plan: {{ $trade->plan->plan_name }} <br>
+								Deposit: ${{ number_format($trade['amount']) }}<br><br>
+								Date Opened: {{ $trade['created_at'] }} <br>
+								Referal Bonus: ${{ number_format(0.1 * $trade['amount']) }}
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
-						</div>
-					</div>
-				</div>
+					@endforeach
+				@endforeach
 			</div>
 		</div>
 		<div class="col-md-4">
@@ -72,7 +29,7 @@
 				<div class="card-body text-center">
 					<p class="font-weight-bold">Referral link</p>
 					<div class="text-black-50 small ">Automatically Top up your Balance by Sharing your Referral Link, Earn a percentage of whatever Plan your Referred user Buys.</div>
-					<p class="small mt-3">https://kryptovesta.com/referral/Jennifer09</p>
+					<p class="small mt-3">https://kryptovesta.com/referral/{{ auth()->user()->username }}</p>
 					<div class="row mt-5">
 						<a href="#" class="btn btn-primary btn-icon-split shadow mx-auto">
 							<span class="icon txt-sm text-white-50">
@@ -104,30 +61,12 @@
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
+					@foreach ($user_referrals as $user_referral)
 					<div class="d-flex mb-3">
 						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
+						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">{{ $user_referral['first_name'] }} {{ $user_referral['last_name'] }}<br>${{ $user_referral['profit'] }}</p>
 					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
+					@endforeach
 				</div>
 			</div>
 		</div>

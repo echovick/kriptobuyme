@@ -14,8 +14,8 @@ class Plan extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function tradeHistories(): HasMany
+	public function tradeHistories()
 	{
-		 return $this->hasMany(TradeHistory::class, 'plan_id');
+		return $this->hasMany(TradeHistory::class, 'plan_id');
 	}
 }

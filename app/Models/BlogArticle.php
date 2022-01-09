@@ -14,7 +14,7 @@ class BlogArticle extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function category(): BelongsTo
+	public function category()
 	{
 		return $this->belongsTo(ArticleCategory::class, 'category_id');
 	}

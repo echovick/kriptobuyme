@@ -14,7 +14,7 @@ class TradeHistory extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function user(): BelongsTo
+	public function user()
 	{
 		return $this->belongsTo(User::class, 'user_id');
 	}
@@ -24,8 +24,8 @@ class TradeHistory extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function plan(): BelongsTo
+	public function plan()
 	{
-		return $this->belongsTo(User::class, 'plan_id');
+		return $this->belongsTo(Plan::class, 'plan_id');
 	}
 }

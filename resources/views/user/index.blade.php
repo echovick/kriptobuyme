@@ -9,7 +9,7 @@
 					<h6 class="m-0 font-weight-bold text-primary text-center">Total Statistics</h6>
 					<div class="text-center mt-4">
 						<p class="small"><i class="fas fa-google-wallet mr-1"></i> Received<br>
-							<span class="text-lg font-weight-bold">USD 4,000.00</span>
+							<span class="text-lg font-weight-bold">USD {{ number_format($total_deposit) }}</span>
 						</p>
 					</div>
 				</div>
@@ -19,15 +19,15 @@
 							Pending
 						</div>
 						<div class="col-6 text-right text-primary">
-							USD 0.00
+							USD {{ number_format($pending_deposit) }}
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-6">
-							Pending
+							Total
 						</div>
 						<div class="col-6 text-right text-primary">
-							USD 0.00
+							USD {{ number_format($total_deposit) }}
 						</div>
 					</div>
 				</div>
@@ -43,7 +43,7 @@
 								<div class="col mr-2">
 									<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Available Profit</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">${{ number_format($available_profit) }}</div>
 								</div>
 								<div class="col-auto">
 									<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -60,7 +60,7 @@
 								<div class="col mr-2">
 									<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Total Profit</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">${{ number_format($total_profit) }}</div>
 								</div>
 								<div class="col-auto">
 									<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -77,7 +77,7 @@
 								<div class="col mr-2">
 									<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Referral</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">${{ number_format($referal_total) }}</div>
 								</div>
 								<div class="col-auto">
 									<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -94,7 +94,7 @@
 								<div class="col mr-2">
 									<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 										Total Bonus</div>
-									<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">${{ number_format($trading_bonus) }}</div>
 								</div>
 								<div class="col-auto">
 									<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -115,31 +115,13 @@
 					<h6 class="m-0 font-weight-bold text-primary">Recent Trades</h6>
 				</div>
 				<div class="card-body">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body">
-							#mXDZd1TsC92RkWyS @ MODRATE/COMBACT [125/125USD]
-						</div>
-					</div>
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body">
-							#mXDZd1TsC92RkWyS @ MODRATE/COMBACT [125/125USD]
-						</div>
-					</div>
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body">
-							#mXDZd1TsC92RkWyS @ MODRATE/COMBACT [125/125USD]
-						</div>
-					</div>
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body">
-							#mXDZd1TsC92RkWyS @ MODRATE/COMBACT [125/125USD]
-						</div>
-					</div>
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body">
-							#mXDZd1TsC92RkWyS @ MODRATE/COMBACT [125/125USD]
-						</div>
-					</div>
+					@foreach ($trades as $trade)
+						<div class="card mb-4 py-3 border-bottom-primary">
+							<div class="card-body">
+								#{{ $trade['reference_id'] }} @ {{ $trade->plan->plan_name }} [{{ $trade['trade_profit'] }}USD/{{ ($trade['daily_percentage'] / 100 * $trade['amount']) * $trade['trade_duration'] }}USD]
+							</div>
+						</div>	 
+					@endforeach
 				</div>
 			</div>
 		</div>
@@ -167,30 +149,12 @@
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
+					@foreach ($top_earners as $top_earner)
+						<div class="d-flex mb-3">
+							<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
+							<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">{{ $top_earner['username'] }}<br>${{ number_format($top_earner['profit']) }}</p>
+						</div>	 
+					@endforeach
 				</div>
 			</div>
 		</div>

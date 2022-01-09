@@ -14,7 +14,7 @@ class WithdrawalMethod extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function withdrawals(): HasMany
+	public function withdrawals()
 	{
 		return $this->hasMany(Withdrawal::class, 'withdrawal_method');
 	}

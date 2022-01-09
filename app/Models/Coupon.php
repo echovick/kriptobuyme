@@ -14,7 +14,7 @@ class Coupon extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function admin(): BelongsTo
+	public function admin()
 	{
 		return $this->belongsTo(Admin::class, 'admin_id');
 	}

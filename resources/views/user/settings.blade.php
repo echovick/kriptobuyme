@@ -14,11 +14,11 @@
 							<label for="" class="font-weight-bold small">Full Name</label>
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control txt-md" id="email" placeholder="Enter email"
+									<input type="text" class="form-control txt-md" id="email" value="{{ auth()->user()->first_name }}"
 										name="email">
 								</div>
 								<div class="col">
-									<input type="password" class="form-control txt-md" placeholder="Enter password"
+									<input type="text" class="form-control txt-md" value="{{ auth()->user()->last_name }}"
 										name="pswd">
 								</div>
 							</div>
@@ -27,12 +27,12 @@
 							<label for="" class="font-weight-bold small">Username</label>
 							<div class="row">
 								<div class="col">
-									<input type="text" class="form-control txt-md" id="email" placeholder="Enter email"
+									<input type="text" class="form-control txt-md" id="email" value="{{ auth()->user()->username }}"
 										name="email">
 								</div>
 							</div>
 						</div>
-						<div class="mb-3">
+						{{-- <div class="mb-3">
 							<label for="" class="font-weight-bold small">Phone Number</label>
 							<div class="row">
 								<div class="col">
@@ -40,12 +40,12 @@
 										name="email">
 								</div>
 							</div>
-						</div>
+						</div> --}}
 						<div class="mb-3">
 							<label for="" class="font-weight-bold small">Email</label>
 							<div class="row">
 								<div class="col">
-									<input type="number" class="form-control txt-md" id="email" placeholder="Enter email"
+									<input type="email" class="form-control txt-md" id="email" value="{{ auth()->user()->email }}"
 										name="email">
 								</div>
 							</div>
@@ -54,7 +54,11 @@
 							<label for="" class="font-weight-bold small">Address</label>
 							<div class="row">
 								<div class="col">
-									<input type="number" class="form-control txt-md" id="email" placeholder="Enter email"
+									<input type="text" class="form-control txt-md" id="email" value="{{ auth()->user()->city }}"
+										name="email">
+								</div>
+								<div class="col">
+									<input type="text" class="form-control txt-md" id="email" value="{{ auth()->user()->country }}"
 										name="email">
 								</div>
 							</div>

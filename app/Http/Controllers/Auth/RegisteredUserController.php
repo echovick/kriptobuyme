@@ -4,6 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\DepositMethod;
+use App\Models\Deposit;
+use App\Models\Withdrawal;
+use App\Models\WithdrawalMethod;
+use App\Models\Plan;
+use App\Models\TradeHistory;
+use App\Models\Transfer;
+use App\Models\Ticket;
+use App\Models\AuditLog;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -64,7 +73,18 @@ class RegisteredUserController extends Controller
 	 */
 	public function showUserDepositPage()
 	{
-		return view('user.deposit');
+		$user_id = auth()->user()->id;
+
+		// Get deposit methods
+		$deposit_methods = DepositMethod::all();
+
+		// get all deposits of user
+		$user_deposits = Deposit::where('user_id', $user_id)->get();
+
+		return view('user.deposit', [
+			'deposit_methods' => $deposit_methods,
+			'user_deposits' => $user_deposits,
+		]);
 	}
 
 	/**
@@ -74,7 +94,22 @@ class RegisteredUserController extends Controller
 	 */
 	public function showUserWithdrawalPage()
 	{
-		return view('user.withdrawal');
+		$user_id = auth()->user()->id;
+
+		// Get all Deposits
+		$total_deposit = Deposit::where(['user_id' => $user_id, 'status' => 'Confirmed'])->sum('amount');
+		$pending_deposit = Deposit::where(['user_id' => $user_id, 'status' => 'Pending'])->sum('amount');
+
+		$user_withdrawals = Withdrawal::where('user_id', $user_id)->get();
+
+		$withdrawal_methods = WithdrawalMethod::all();
+
+		return view('user.withdrawal', [
+			'user_withdrawals' => $user_withdrawals,
+			'total_deposit' => $total_deposit,
+			'pending_deposit' => $pending_deposit,
+			'withdrawal_methods' => $withdrawal_methods,
+		]);
 	}
 
 	/**
@@ -83,7 +118,11 @@ class RegisteredUserController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function showPlansPage(){
-		return view('user.plans');
+
+		// get all plans
+		$plans = Plan::where('status', 'Active')->get();
+
+		return view('user.plans')->with('plans', $plans);
 	}
 
 	/**
@@ -92,7 +131,39 @@ class RegisteredUserController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function showTradeActivitiesPage(){
-		return view('user.trade-activity');
+
+		$user_id = auth()->user()->id;		
+
+		// get trade history
+		$user_trades = TradeHistory::where('user_id', $user_id)->get();
+
+		// get top earners
+		$top_earners = User::orderBy('id', 'DESC')->get();
+
+		// get user trade stats
+		$highest_amount = TradeHistory::where('user_id', $user_id)->max('amount'); // Highest amount
+		$lowest_amount = TradeHistory::where('user_id', $user_id)->min('amount'); //Lowest amount
+		$total_amount = TradeHistory::where('user_id', $user_id)->sum('amount'); //total amount
+		$highest_profit = TradeHistory::where('user_id', $user_id)->max('trade_profit'); //highest profit
+		$lowest_profit = TradeHistory::where('user_id', $user_id)->min('trade_profit'); //lowest profit
+		$total_profit = TradeHistory::where('user_id', $user_id)->sum('trade_profit'); //lowest profit
+		$highest_bonus = TradeHistory::where('user_id', $user_id)->max('trade_bonus'); //highest bonus
+		$lowest_bonus = TradeHistory::where('user_id', $user_id)->min('trade_bonus'); //lowest bonus
+		$total_bonus = TradeHistory::where('user_id', $user_id)->sum('trade_bonus'); //total bonus
+
+		return view('user.trade-activity', [
+			'user_trades' => $user_trades,
+			'top_earners' => $top_earners,
+			'highest_amount' => $highest_amount,
+			'lowest_amount' => $lowest_amount,
+			'total_amount' => $total_amount,
+			'highest_profit' => $highest_profit,
+			'lowest_profit' => $lowest_profit,
+			'total_profit' => $total_profit,
+			'highest_bonus' => $highest_bonus,
+			'lowest_bonus' => $lowest_bonus,
+			'total_bonus' => $total_bonus,
+		]);
 	}
 
 	/**
@@ -101,7 +172,27 @@ class RegisteredUserController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function showTransferPage(){
-		return view('user.transfer');
+		
+		$user_id = auth()->user()->id;
+		
+		// get all user transfers
+		$user_transfers = Transfer::where('sender_id', $user_id)->get();
+
+		// get total transfers sent
+		$total_sent = Transfer::where(['sender_id' => $user_id, 'status' => 'Confirmed'])->sum('amount');
+
+		// get total transfers pending
+		$total_pending = Transfer::where(['sender_id' => $user_id, 'status' => 'Pending'])->sum('amount');
+
+		// get total transfers returned
+		$total_returned = Transfer::where(['sender_id' => $user_id, 'status' => 'Returned'])->sum('amount');
+
+		return view('user.transfer', [
+			'user_transfers' => $user_transfers,
+			'total_sent' => $total_sent,
+			'total_pending' => $total_pending,
+			'total_returned' => $total_returned,
+		]);
 	}
 
 	/**
@@ -110,7 +201,12 @@ class RegisteredUserController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function showTicketsPage(){
-		return view('user.tickets');
+		// Get user id
+		$user_id = auth()->user()->id;
+
+		$user_tickets = Ticket::where('user_id', $user_id)->get();
+		
+		return view('user.tickets')->with('user_tickets', $user_tickets);
 	}
 
 	/**
@@ -123,10 +219,24 @@ class RegisteredUserController extends Controller
 	}
 
 	public function showAuditLogsPage(){
-		return view('user.audit-logs');
+
+		// Get user id
+		$user_id = auth()->user()->id;
+
+		// Get user audit logs
+		$user_audit_logs = AuditLog::where('user_id', $user_id)->get();
+
+		return view('user.audit-logs')->with('user_audit_logs', $user_audit_logs);
 	}
 
 	public function showReferalsPage(){
-		return view('user.referals');
+
+		// Get user id
+		$user_id = auth()->user()->id;
+
+		// Get user referrals
+		$user_referrals = User::where('referer', $user_id)->get();
+
+		return view('user.referals')->with('user_referrals', $user_referrals);
 	}
 }

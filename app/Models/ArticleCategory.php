@@ -14,7 +14,7 @@ class ArticleCategory extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function blogArticles(): HasMany
+	public function blogArticles()
 	{
 		return $this->hasMany(BlogArticle::class, 'category_id');
 	}

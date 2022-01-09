@@ -20,7 +20,7 @@ class CreateDepositsTable extends Migration
 			$table->float('amount')->nullable()->default(00.0);
 			$table->integer('deposit_method');
 			$table->float('deposit_charge')->nullable()->default(00.0);
-			$table->string('status', 100)->nullable()->default('');
+			$table->string('status', 100)->nullable()->default('Pending');
 			$table->timestamps();
 		});
 	}

@@ -55,7 +55,7 @@ class Admin extends Authenticatable
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function coupons(): HasMany
+	public function coupons()
 	{
 		return $this->hasMany(Coupon::class, 'admin_id');
 	}

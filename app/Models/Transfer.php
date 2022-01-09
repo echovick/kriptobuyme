@@ -14,7 +14,7 @@ class Transfer extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function sender(): BelongsTo
+	public function sender()
 	{
 		return $this->belongsTo(User::class, 'sender_id');
 	}
@@ -24,7 +24,7 @@ class Transfer extends Model
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function receiver(): BelongsTo
+	public function receiver()
 	{
 		return $this->belongsTo(User::class, 'receiver_id');
 	}

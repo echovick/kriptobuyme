@@ -18,7 +18,7 @@ class CreateTicketsTable extends Migration
 			$table->integer('user_id');
 			$table->string('priority', 100)->nullable()->default('');
 			$table->string('ticket_id', 100)->nullable()->default('');
-			$table->string('status', 100)->nullable()->default('');
+			$table->string('status', 100)->nullable()->default('Open');
 			$table->string('subject', 100)->nullable()->default('');
 			$table->string('content', 100)->nullable()->default('');
 			$table->timestamps();

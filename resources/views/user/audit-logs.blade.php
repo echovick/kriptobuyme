@@ -28,90 +28,15 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($user_audit_logs as $user_audit_log)
 						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
+							<td>{{ $user_audit_log['id'] }}</td>
+							<td>#{{ $user_audit_log['reference_id'] }}</td>
+							<td>{{ $user_audit_log['log'] }}</td>
+							<td>{{ $user_audit_log['created_at'] }} </td>
+							<td>{{ $user_audit_log['updated_at'] }} </td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>#XVgYmBjkMcT6SZzv</td>
-							<td>Check how much would be earned from buying STARTER/COMPLEX</td>
-							<td>2021/12/18 02:25:PM </td>
-							<td>2021/12/18 02:25:PM </td>
-						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

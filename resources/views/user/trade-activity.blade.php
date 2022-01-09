@@ -5,66 +5,23 @@
 	<div class="row mt-3">
 		<div class="col-md-8">
 			<div class="row">
+				@foreach ($user_trades as $user_trade)
 				<div class="col-md-6">
 					<div class="card mb-4 py-3 border-bottom-primary">
 						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
+							<span class="txt-md font-weight-bold">#{{ $user_trade['reference_id'] }} </span><br><br>
+							Plan: {{ $user_trade->plan->plan_name }} <br>
+							Started: {{ $user_trade['created_at'] }}<br>
+							Deposit: ${{ number_format($user_trade['amount']) }}<br>
+							Percent: %{{ number_format($user_trade['daily_percentage']) }} <br>
+							Duration: {{ number_format($user_trade['trade_duration']) }} Day(s)<br>
+							Type: {{ $user_trade['trade_source'] }}<br>
+							End: {{ $user_trade['trade_end_date'] }}<br><br>
+							{{ $user_trade['trade_profit'] }}USD/{{ ($user_trade['daily_percentage'] / 100 * $user_trade['amount']) * $user_trade['trade_duration'] }} + Trading Bonus ${{ $user_trade['trade_bonus'] }}
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card mb-4 py-3 border-bottom-primary">
-						<div class="card-body small">
-							<span class="txt-md font-weight-bold">#JMMc6N4VVtLixdea </span><br><br>
-							Plan: MODRATE/COMBACT <br>
-							Started: 2021/12/10 04:01:AM<br>
-							Deposit: $2,500<br>
-							Percent: 2.5% <br>
-							Duration: 2 Day(s)<br>
-							Type: Account balance<br>
-							End: 2021/12/12 04:01:AM<br><br>
-							$125 / $125 + Trading Bonus $38
-						</div>
-					</div>
-				</div>
+				@endforeach
 			</div>
 		</div>
 		<div class="col-md-4">
@@ -89,44 +46,26 @@
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
+					@foreach ($top_earners as $top_earner)
 					<div class="d-flex mb-3">
 						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
+						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">{{ $top_earner['username'] }}<br>${{ number_format($top_earner['profit']) }}</p>
 					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex mb-3">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
-					<div class="d-flex">
-						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">Douglas McGee<br>$29,600</p>
-					</div>
+					@endforeach
 				</div>
 			</div>
 			<div class="card mb-4 py-3 border-bottom-primary">
 				<div class="card-body small">
 					<span class="txt-md font-weight-bold">Your Statistics</span><br><br>
-					Highest Amount: $2,500 - #mXDZd1TsC92RkWyS <br>
-					Lowest Amount: $200 - #SlVFNsGWMFcqgNXq<br>
-					Total Amount: $3,500<br>
-					Highest Profit: $125 - #mXDZd1TsC92RkWyS <br>
-					Lowest Profit: $3 - #SlVFNsGWMFcqgNXq<br>
-					Total Profit: $-3,360<br>
-					Highest Bonus: $0<br>
-					Lowest Bonus: $0<br>
-					Total Bonus: $0
+					Highest Amount: ${{ number_format($highest_amount) }} <br>
+					Lowest Amount: ${{ number_format($lowest_amount) }} <br>
+					Total Amount: ${{ number_format($total_amount) }}<br>
+					Highest Profit: ${{ number_format($highest_profit) }} <br>
+					Lowest Profit: ${{ number_format($lowest_profit) }}<br>
+					Total Profit: ${{ number_format($total_profit) }}<br>
+					Highest Bonus: ${{ number_format($highest_bonus) }}<br>
+					Lowest Bonus: ${{ number_format($lowest_bonus) }}<br>
+					Total Bonus: ${{ number_format($total_bonus) }}
 				</div>
 			</div>
 		</div>
