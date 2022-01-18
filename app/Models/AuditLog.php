@@ -10,6 +10,17 @@ class AuditLog extends Model
 	use HasFactory;
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'user_id',
+		'reference_id',
+		'log',
+	];
+
+	/**
 	 * Get the user that owns the AuditLog
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

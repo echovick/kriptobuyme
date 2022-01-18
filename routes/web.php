@@ -85,6 +85,7 @@ Route::prefix('dashboard')->group(function() {
 	Route::post('/trade/complete', [App\Http\Controllers\TradeHistoryController::class, 'store'])->name('user.invest.create');
 	Route::post('/withdrawal', [App\Http\Controllers\WithdrawalController::class, 'store'])->name('user.withdrawal.create');
 	Route::post('/transfer', [App\Http\Controllers\TransferController::class, 'store'])->name('user.transfer.new');
+	Route::post('/tickets', [App\Http\Controllers\TicketController::class, 'store'])->name('user.ticket.new');
 });
 
 // Admin Routes

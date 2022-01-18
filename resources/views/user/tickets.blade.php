@@ -2,8 +2,13 @@
 
 @section('content')
 <div class="container-fluid">
+	@if (isset($_GET['message']) && $_GET['message'] == 'successfull')
+	<div class="alert alert-info">
+		New Support Ticket Has been created succesfully
+	</div>		 
+	@endif
 	<div class="row ml-2">
-		<a href="#" class="btn btn-primary btn-icon-split shadow">
+		<a href="#" class="btn btn-primary btn-icon-split shadow" data-toggle="modal" data-target="#open-ticket">
 			<span class="icon txt-sm text-white-50">
 				<i class="fas fa-plus"></i>
 			</span>
@@ -51,7 +56,7 @@
 							<td><span class="badge badge-{{ $user_ticket['status'] == 'Open' ? 'success' : 'danger' }} p-2">{{ $user_ticket['status'] }}</span></td>
 							<td>{{ $user_ticket['subject'] }}</td>
 							<td>{{ $user_ticket['created_at'] }}</td>
-							<td>{{ $user_ticketp['updated_at'] }}</td>
+							<td>{{ $user_ticket['updated_at'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -72,6 +77,35 @@
 			</div>
 		</div>
 	</div>
-	
+</div>
+{{-- modals --}}
+<div class="modal fade" id="open-ticket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content py-3">
+			<form action="{{ route('user.ticket.new') }}" method="POST" class="px-5">
+				@csrf
+				<p class="mx-auto text-center text-dark font-weight-bold">Open Ticket</p>
+				<div class="form-group mt-5 row">
+					<span>Subject: </span>
+					<input type="text" name="subject" class="px-1 mx-2 form-control" name="email" placeholder="" style="outline:none; width:80%;" required>
+				</div>
+				<div class="form-group mt-4 row">
+					<span>Priority: </span>
+					<select name="priority" id="" class="form-control px-1 mx-2" style="outline:none; width:80%; border-radius:0px;">
+						<option value="Low">Low</option>
+						<option value="Medium">Medium</option>
+						<option value="High">High</option>
+					</select>
+				</div>
+				<div class="form-group mt-4 row">
+					<span>Details: </span>
+					<textarea name="details" class="form-control px-1 mx-2" id="" cols="20" rows="10" style="outline:none; width:80%; border-radius:0px;"></textarea>
+				</div>
+				<div class="row mt-5 py-3 ">
+					<button type="submit" class="btn btn-primary btn-sm mx-auto">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ticket;
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -35,7 +36,30 @@ class TicketController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		// get input info
+		$subject = $request->input('subject');
+		$priority = $request->input('priority');
+		$details = $request->input('details');
+
+		// genrate ticket id
+		$ticket_id = time() . rand(10*45, 100*98);
+
+		Ticket::create([
+			'user_id' => auth()->user()->id,
+			'priority' => $priority,
+			'ticket_id' => $ticket_id,
+			'subject' => $subject,
+			'content' => $details,
+			'status' => 'Open',
+		]);
+
+		AuditLog::create([
+			'user_id' => auth()->user()->id,
+			'reference_id' => 'AUD' . $ref_id,
+			'log' => 'Opened New Ticket. ID: '. $ticket_id,
+		]);
+
+		return redirect()->route('user.tickets', ['message' => 'successfull']);
 	}
 
 	/**

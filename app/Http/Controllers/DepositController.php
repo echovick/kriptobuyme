@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DepositMethod;
 use App\Models\Deposit;
+use App\Models\AuditLog;
 use App\Models\User;
 
 class DepositController extends Controller
@@ -35,6 +36,14 @@ class DepositController extends Controller
 
 		// Get deposit method charge
 		$deposit_method_charge = DepositMethod::where('id', $deposit_method)->first('fixed_charge_amount');
+		
+		$ref_id = time() . rand(10*45, 100*98);
+		
+		AuditLog::create([
+			'user_id' => auth()->user()->id,
+			'reference_id' => 'AUD' . $ref_id,
+			'log' => 'New Account Deposit Preview',
+		]);
 
 		return view('user.deposit-preview', [
 			'deposit_method_name' => $deposit_method_name,
@@ -79,6 +88,12 @@ class DepositController extends Controller
 
 		// Get deposit method name and address
 		$deposit_method_details = DepositMethod::where('id', $request->input('deposit_method'))->first();
+
+		AuditLog::create([
+			'user_id' => auth()->user()->id,
+			'reference_id' => 'AUD' . $ref_id,
+			'log' => 'Deposited '. $request->input('amount'). ' Successfully',
+		]);
 
 		return view('user.confirm-deposit', [
 			'deposit_method_details' => $deposit_method_details,

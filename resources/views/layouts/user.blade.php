@@ -66,12 +66,12 @@
 
 				<li class="nav-item {{ request()->is('dashboard/deposit') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('user.deposit') }}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-donate"></i>
 						<span>Make Deposit</span></a>
 				</li>
 				<li class="nav-item {{ request()->is('dashboard/withdrawal') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('user.withdrawal') }}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-hand-holding-usd"></i>
 						<span>Withdrawal</span></a>
 				</li>
 
@@ -79,7 +79,7 @@
 				<li class="nav-item {{ request()->is('dashboard/plans') || request()->is('dashboard/trade-activity') ? 'active' : '' }}">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
 						aria-expanded="true" aria-controls="collapseTwo">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-fw fa-landmark"></i>
 						<span>Trades & Plans</span>
 					</a>
 					<div id="collapseTwo" class="collapse {{ request()->is('dashboard/plans') || request()->is('dashboard/trade-activity') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -92,7 +92,7 @@
 
 				<li class="nav-item {{ request()->is('dashboard/transfer') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('user.transfer') }}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-share-square"></i>
 						<span>Make Transfer</span></a>
 				</li>
 
@@ -106,25 +106,25 @@
 
 				<li class="nav-item {{ request()->is('dashboard/tickets') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('user.tickets') }}">
-						<i class="fas fa-fw fa-chart-area"></i>
+						<i class="fas fa-fw fa-bug"></i>
 						<span>Disputes</span></a>
 				</li>
 
 				<li class="nav-item {{ request()->is('dashboard/settings') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('user.settings') }}">
-						<i class="fas fa-fw fa-table"></i>
+						<i class="fas fa-fw fa-cogs"></i>
 						<span>Settings</span></a>
 				</li>
 
 				<li class="nav-item {{ request()->is('dashboard/audit-logs') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('user.audit-logs') }}">
-						<i class="fas fa-fw fa-chart-area"></i>
+						<i class="fas fa-fw fa-clipboard-list"></i>
 						<span>Audit Logs</span></a>
 				</li>
 
-				<li class="nav-item" {{ request()->is('dashboard/referals') ? 'active' : '' }}>
+				<li class="nav-item {{ request()->is('dashboard/referals') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('user.referals') }}">
-						<i class="fas fa-fw fa-table"></i>
+						<i class="fas fa-fw fa-users"></i>
 						<span>Referral</span></a>
 				</li>
 

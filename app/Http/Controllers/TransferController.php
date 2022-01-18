@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transfer;
 use App\Models\User;
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 
 class TransferController extends Controller
@@ -52,6 +53,11 @@ class TransferController extends Controller
 		empty($receiver_id) ? $receiver_id = 0 : '';
 
 		if($user_balance < $amount){
+			AuditLog::create([
+				'user_id' => auth()->user()->id,
+				'reference_id' => 'AUD' . $ref_id,
+				'log' => 'Funds Transfer Attempt Failed, Insuffecient Balance'
+			]);
 			return redirect()->route('user.transfer', ['message' => 'insufficient_amount']);
 		}else{
 			Transfer::create([
@@ -61,7 +67,13 @@ class TransferController extends Controller
 				'receiver_id' => $receiver_id,
 				'amount' => $amount,
 				'charge' => 0.05 * $amount,
-				'status' => 'Pendiing',
+				'status' => 'Pending',
+			]);
+
+			AuditLog::create([
+				'user_id' => auth()->user()->id,
+				'reference_id' => 'AUD' . $ref_id,
+				'log' => 'Funds Transfer to '. $email,
 			]);
 
 			return redirect()->route('user.transfer', ['message' => 'successfull']);

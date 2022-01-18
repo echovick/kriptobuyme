@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DepositMethod;
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 
 class DepositMethodController extends Controller
@@ -45,6 +46,13 @@ class DepositMethodController extends Controller
 			'status' => 'Inactive',
 			'method_address' => $request->input('method_address'),
 		]);
+
+		AuditLog::create([
+			'user_id' => auth()->user()->id,
+			'reference_id' => 'AUD' . $ref_id,
+			'log' => 'New Deposit Method Created. '. $request->input('display_name'),
+		]);
+
 
 		return redirect()->route('admin.payment-gateways', ['action' => 'successfull']);
 	}

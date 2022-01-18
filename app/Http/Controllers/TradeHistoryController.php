@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TradeHistory;
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 
 class TradeHistoryController extends Controller
@@ -53,8 +54,18 @@ class TradeHistoryController extends Controller
 		$user_balance = auth()->user()->balance;
 
 		if($user_balance < $amount){
+			AuditLog::create([
+				'user_id' => auth()->user()->id,
+				'reference_id' => 'AUD' . $ref_id,
+				'log' => 'Trade Purchase Attempt Failed, Insuffecient Balance'
+			]);
 			return redirect()->route('user.plans', ['message' => 'unsuccessful']);
 		}else{
+			AuditLog::create([
+				'user_id' => auth()->user()->id,
+				'reference_id' => 'AUD' . $ref_id,
+				'log' => 'Purchased Preview of '. $plan['plan_name']. ' plan',
+			]);
 			return view('user.preview-trade', [
 				'plan' => $plan,
 				'amount' => $amount,
@@ -113,6 +124,12 @@ class TradeHistoryController extends Controller
 
 		User::where('id', $user_id)->update([
 			'balance' => $new_balance,
+		]);
+
+		AuditLog::create([
+			'user_id' => auth()->user()->id,
+			'reference_id' => 'AUD' . $ref_id,
+			'log' => 'Purchased '. $plan['plan_name']. ' plan successfully',
 		]);
 
 		return redirect()->route('user.trade-activity', ['message' => 'successfull']);

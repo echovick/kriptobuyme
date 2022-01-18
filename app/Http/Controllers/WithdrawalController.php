@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Withdrawal;
 use App\Models\WithdrawalMethod;
 use App\Models\Deposit;
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 
 class WithdrawalController extends Controller
@@ -54,16 +55,31 @@ class WithdrawalController extends Controller
 			case 'profit':
 				$user_profit = auth()->user()->profit;
 				if($user_profit < $withdrawal_amount){
+					AuditLog::create([
+						'user_id' => auth()->user()->id,
+						'reference_id' => 'AUD' . $ref_id,
+						'log' => 'User Withdrwal Attempt Failed, Insuffecient Profit Balance'
+					]);
 					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
 				}
 			case 'balance':
 				$user_balance = auth()->user()->balance;
 				if($user_balance < $withdrawal_amount){
+					AuditLog::create([
+						'user_id' => auth()->user()->id,
+						'reference_id' => 'AUD' . $ref_id,
+						'log' => 'User Withdrwal Attempt Failed, Insuffecient User Balance'
+					]);
 					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
 				}
 			case 'referal':
 				$user_referal = auth()->user()->referal_bonus;
 				if($user_referal < $withdrawal_amount){
+					AuditLog::create([
+						'user_id' => auth()->user()->id,
+						'reference_id' => 'AUD' . $ref_id,
+						'log' => 'User Withdrwal Attempt Failed, Insuffecient referal bonus balance'
+					]);
 					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
 				}
 		}

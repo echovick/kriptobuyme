@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container-fluid">
+	@if (isset($_GET['message']) && $_GET['message'] == 'insufficient_amount')
+	<div class="alert alert-info">
+		You do not have sufficent balance to make this transfer
+	</div>		 
+	@endif
 	<div class="row ml-2">
 		<a href="#" class="btn btn-primary btn-icon-split shadow" data-toggle="modal" data-target="#transfer">
 			<span class="icon txt-sm text-white-50">

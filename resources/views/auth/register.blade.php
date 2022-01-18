@@ -170,7 +170,7 @@
 				<div class="hidden-xs col-sm-4 col-md-4 col-lg-4">
 					<!-- Logo Starts -->
 					<a class="logo" href="home.html">
-						<img id="logo-user" class="img-responsive" src="assets/images/logo.png" alt="logo">
+						<img id="logo-user" class="img-responsive" src="{{ asset('site/images/logo.png') }}" alt="logo">
 					</a>
 					<!-- Logo Ends -->
 					<!-- Slider Starts -->
@@ -244,6 +244,7 @@
 							<!-- Form Starts -->
 							<form method="POST" action="{{ route('register') }}" class="">
 								@csrf
+								<input type="text" name='referer' value="{{ $referrer }}" hidden>
 								<b>
 									<h2>
 										<center>Account Information</center>

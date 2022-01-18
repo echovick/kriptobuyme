@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WithdrawalMethod;
+use App\Models\AuditLog;
 use Illuminate\Http\Request;
 
 class WithdrawalMethodController extends Controller

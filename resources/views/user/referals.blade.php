@@ -29,7 +29,7 @@
 				<div class="card-body text-center">
 					<p class="font-weight-bold">Referral link</p>
 					<div class="text-black-50 small ">Automatically Top up your Balance by Sharing your Referral Link, Earn a percentage of whatever Plan your Referred user Buys.</div>
-					<p class="small mt-3">https://kriptobuyume.com/referral/{{ strtolower(auth()->user()->username) }}</p>
+					<p class="small mt-3">https://kriptobuyume.com/referral/{{ auth()->user()->username }}</p>
 					<div class="row mt-5">
 						<a href="#" class="btn btn-primary btn-icon-split shadow mx-auto">
 							<span class="icon txt-sm text-white-50">

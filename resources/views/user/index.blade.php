@@ -132,7 +132,7 @@
 				<!-- Card Header - Dropdown -->
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 					<h6 class="m-0 font-weight-bold text-primary">Top Earners</h6>
-					<div class="dropdown no-arrow">
+					{{-- <div class="dropdown no-arrow">
 						<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -145,15 +145,17 @@
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="#">Something else here</a>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 				<!-- Card Body -->
 				<div class="card-body">
 					@foreach ($top_earners as $top_earner)
-						<div class="d-flex mb-3">
-							<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
-							<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">{{ $top_earner['username'] }}<br>${{ number_format($top_earner['profit']) }}</p>
-						</div>	 
+					@if (number_format($top_earner['profit']))
+					<div class="d-flex mb-3">
+						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
+						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">{{ $top_earner['username'] }}<br>${{ number_format($top_earner['profit']) }}</p>
+					</div>	 
+					@endif
 					@endforeach
 				</div>
 			</div>

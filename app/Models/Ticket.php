@@ -10,6 +10,20 @@ class Ticket extends Model
 	use HasFactory;
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'user_id',
+		'priority',
+		'ticket_id',
+		'subject',
+		'content',
+		'status',
+	];
+
+	/**
 	 * Get the user that owns the Ticket
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
