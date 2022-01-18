@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row ml-2">
-		<a href="#" class="btn btn-primary btn-icon-split shadow">
+		<a href="#" class="btn btn-primary btn-icon-split shadow" data-toggle="modal" data-target="#transfer">
 			<span class="icon txt-sm text-white-50">
 				<i class="fas fa-plus"></i>
 			</span>
@@ -67,6 +67,30 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+{{-- Modals --}}
+<div class="modal fade" id="transfer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content py-3">
+			<form action="{{ route('user.transfer.new') }}" method="POST" class="px-5">
+				@csrf
+				<p class="mx-auto text-center text-dark font-weight-bold">Transfer Money</p>
+				<p class="mx-auto text-center text-dark font-weight-bold small">Trasfer Charge is 5% per transaction, if user is not a member of this platform, registration is required to claim the money, money will be refunded after 5 days if the money is not claimed</p>
+				<div class="form-group px-5 mt-5 row">
+					<span>Email: </span>
+					<input type="email" class="px-1 mx-2" name="email" placeholder="" style="border:none; outline:none; border-bottom:1px solid rgb(78, 78, 78); width:70%;" required>
+				</div>
+				<div class="form-group px-5 mt-5 row">
+					<span>Amount: </span>
+					<input type="number" class="px-1 mx-2" name="amount" placeholder="" style="border:none; outline:none; border-bottom:1px solid rgb(78, 78, 78); width:70%;">
+				</div>
+				<div class="row mt-5 py-3 ">
+					<button type="submit" class="btn btn-primary btn-sm mx-auto">Transfer</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

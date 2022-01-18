@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container-fluid">
+	@if (isset($_GET['message']) && $_GET['message'] == 'successfull')
+		<div class="alert alert-success">
+			Trade Created Successfully
+		</div>
+	@endif
 	<div class="row mt-3">
 		<div class="col-md-8">
 			<div class="row">
@@ -13,7 +18,7 @@
 							Plan: {{ $user_trade->plan->plan_name }} <br>
 							Started: {{ $user_trade['created_at'] }}<br>
 							Deposit: ${{ number_format($user_trade['amount']) }}<br>
-							Percent: %{{ number_format($user_trade['daily_percentage']) }} <br>
+							Percent: {{ number_format($user_trade['daily_percentage']) }}% <br>
 							Duration: {{ number_format($user_trade['trade_duration']) }} Day(s)<br>
 							Type: {{ $user_trade['trade_source'] }}<br>
 							End: {{ $user_trade['trade_end_date'] }}<br><br>

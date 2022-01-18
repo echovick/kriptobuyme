@@ -10,6 +10,25 @@ class TradeHistory extends Model
 	use HasFactory;
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'user_id',
+		'reference_id',
+		'amount',
+		'plan_id',
+		'daily_percentage',
+		'trade_profit',
+		'trade_duration',
+		'trade_source',
+		'trade_bonus',
+		'trade_end_date'
+	];
+
+
+	/**
 	 * Get the user that owns the TradeHistory
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

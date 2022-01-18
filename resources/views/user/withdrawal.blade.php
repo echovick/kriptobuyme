@@ -2,12 +2,14 @@
 
 @section('content')
 <div class="container-fluid">
-	@if (isset($msg) && !empty($msg))
-	<div class="row">
-		<div class="alert alert-success">
-			{{ $msg }}
+	@if (isset($_GET['message']) && $_GET['message'] == 'successfull')
+		<div class="alert alert-info">
+			Withdrwal Request Created Successfully
 		</div>
-	</div>
+	@elseif (isset($_GET['message']) && $_GET['message'] == 'insufficient_amount')
+		<div class="alert alert-info">
+			Insufficent Balance
+		</div>
 	@endif
 	<div class="row ml-2">
 		<a href="#" class="btn btn-primary btn-icon-split shadow" data-toggle="modal" data-target="#withdrawal">

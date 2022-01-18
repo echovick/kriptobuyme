@@ -10,6 +10,21 @@ class Transfer extends Model
 	use HasFactory;
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'user_id',
+		'reference_id',
+		'sender_id',
+		'receiver_id', 
+		'amount',
+		'charge', 
+		'status',
+	];
+
+	/**
 	 * Get the sender that owns the Transfer
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -46,6 +46,28 @@ class WithdrawalController extends Controller
 		// Get withdrawal charge
 		$charge = 0.1 * $request->input('amount'); 
 
+		// Check withdrawl amount with user amount
+		$withdrawal_amount = $request->input('amount');
+		$withdrawal_type = $request->input('withdrawal_type');
+
+		switch($withdrawal_type){
+			case 'profit':
+				$user_profit = auth()->user()->profit;
+				if($user_profit < $withdrawal_amount){
+					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
+				}
+			case 'balance':
+				$user_balance = auth()->user()->balance;
+				if($user_balance < $withdrawal_amount){
+					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
+				}
+			case 'referal':
+				$user_referal = auth()->user()->referal_bonus;
+				if($user_referal < $withdrawal_amount){
+					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
+				}
+		}
+
 		Withdrawal::create([
 			'reference_id' => $ref_id,
 			'charge' => $charge,
@@ -65,13 +87,7 @@ class WithdrawalController extends Controller
 
 		$withdrawal_methods = WithdrawalMethod::all();
 
-		return view('user.withdrawal', [
-			'msg' => 'Created Successfully',
-			'user_withdrawals' => $user_withdrawals,
-			'total_deposit' => $total_deposit,
-			'pending_deposit' => $pending_deposit,
-			'withdrawal_methods' => $withdrawal_methods,
-		]);
+		return redirect()->route('user.withdrawal', ['message' => 'successfull']);
 	}
 
 	/**

@@ -8,7 +8,7 @@
             });
         </script>
         <!-- Banner Area Starts -->
-        <section class="banner-area">
+        	<section class="banner-area">
             <div class="banner-overlay">
                 <div class="banner-text text-center">
                     <div class="container">

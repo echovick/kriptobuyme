@@ -74,8 +74,8 @@ class DepositController extends Controller
 		$user_balance = User::where('id', $user_id)->first();
 
 		// Update user balance
-		$new_balance = intval($user_balance['balance']) + $request->input('amount');
-		User::where('id', $user_id)->update(['balance' => $new_balance]);
+		// $new_balance = intval($user_balance['balance']) + $request->input('amount');
+		// User::where('id', $user_id)->update(['balance' => $new_balance]);
 
 		// Get deposit method name and address
 		$deposit_method_details = DepositMethod::where('id', $request->input('deposit_method'))->first();

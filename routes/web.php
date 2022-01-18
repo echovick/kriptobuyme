@@ -34,8 +34,8 @@ Route::prefix('dashboard')->group(function() {
 	Route::get('/', function () {
 		$user_id = auth()->user()->id;
 		// Get all Deposits
-		$total_deposit = Deposit::where(['id' => $user_id, 'status' => 'Confirmed'])->sum('amount');
-		$pending_deposit = Deposit::where(['id' => $user_id, 'status' => 'Pending'])->sum('amount');
+		$total_deposit = Deposit::where(['user_id' => $user_id, 'status' => 'Confirmed'])->sum('amount');
+		$pending_deposit = Deposit::where(['user_id' => $user_id, 'status' => 'Pending'])->sum('amount');
 
 		// Get available profit
 		$available_profit = auth()->user()->profit;
@@ -80,8 +80,11 @@ Route::prefix('dashboard')->group(function() {
 
 	// POST Routes
 	Route::post('/deposit/preview', [App\Http\Controllers\DepositController::class, 'create'])->name('user.deposit.preview');
+	Route::post('/plan/preview', [App\Http\Controllers\TradeHistoryController::class, 'create'])->name('user.invest.new');
 	Route::post('/deposit/complete', [App\Http\Controllers\DepositController::class, 'store'])->name('user.deposit.create');
+	Route::post('/trade/complete', [App\Http\Controllers\TradeHistoryController::class, 'store'])->name('user.invest.create');
 	Route::post('/withdrawal', [App\Http\Controllers\WithdrawalController::class, 'store'])->name('user.withdrawal.create');
+	Route::post('/transfer', [App\Http\Controllers\TransferController::class, 'store'])->name('user.transfer.new');
 });
 
 // Admin Routes

@@ -14,7 +14,7 @@ class AddColumnsToUsersTable extends Migration
 	public function up()
 	{
 		Schema::table('users', function (Blueprint $table) {
-			$table->integer('referer');
+			$table->integer('referer')->unsigned()->nullable()->default(0);
 		});
 	}
 
