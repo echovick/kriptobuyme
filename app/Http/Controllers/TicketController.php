@@ -44,12 +44,27 @@ class TicketController extends Controller
 		// genrate ticket id
 		$ticket_id = time() . rand(10*45, 100*98);
 
+		// General Reference id
+		$ref_id = time() . rand(10*45, 100*98);
+
+		// Create chat array
+		$content = array(
+			array(
+				'user_type' => 'User',
+				'user_id' => auth()->user()->id,
+				'message' => $details,
+				'timestamp' => date('Y-m-d h:m:s'),
+			),
+		);
+
+
+
 		Ticket::create([
 			'user_id' => auth()->user()->id,
 			'priority' => $priority,
 			'ticket_id' => $ticket_id,
 			'subject' => $subject,
-			'content' => $details,
+			'content' => serialize($content),
 			'status' => 'Open',
 		]);
 
@@ -79,9 +94,11 @@ class TicketController extends Controller
 	 * @param  \App\Models\Ticket  $ticket
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Ticket $ticket)
+	public function edit($id)
 	{
-		//
+		$ticket = Ticket::find($id)->first();
+
+		return view('user.manage-ticket')->with('ticket', $ticket);
 	}
 
 	/**
@@ -91,9 +108,42 @@ class TicketController extends Controller
 	 * @param  \App\Models\Ticket  $ticket
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Ticket $ticket)
+	public function update(Request $request, $id)
 	{
-		//
+		$message = $request->input('message');
+		$ticket = Ticket::find($id)->first();
+
+		$content = unserialize($ticket->content);
+
+		// Create new array
+		// Create chat array
+		$new_content = array(
+			'user_type' => $request->input('user_type'),
+			'user_id' => auth()->user()->id,
+			'message' => $message,
+			'timestamp' => date('Y-m-d h:m:s'),
+		);
+
+		$content[] = $new_content;
+
+		Ticket::where('id', $id)->update([
+			'content' => serialize($content),
+		]);
+
+		return redirect()->route('user.ticket.edit', ['id' => $id]);
+	}
+
+	/**
+	 * close the specified resource from storage.
+	 *
+	 * @param  \App\Models\Ticket  $ticket
+	 * @return \Illuminate\Http\Response
+	 */
+	public function close($id)
+	{
+		Ticket::where('id', $id)->update(['status' => 'Closed']);
+
+		return redirect()->route('user.tickets', ['id' => $id]);
 	}
 
 	/**

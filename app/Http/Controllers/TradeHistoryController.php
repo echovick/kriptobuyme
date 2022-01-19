@@ -6,6 +6,7 @@ use App\Models\TradeHistory;
 use App\Models\Plan;
 use App\Models\User;
 use App\Models\AuditLog;
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 
 class TradeHistoryController extends Controller
@@ -32,6 +33,18 @@ class TradeHistoryController extends Controller
 		$amount = $request->input('amount');
 		$coupon_code = $request->input('coupon_code');
 
+		// Implement Coupon, if available
+		if(!empty($coupon_code)){
+			// get coupon details
+			$percentage_off = Coupon::where([
+				'coupon_code' => $coupon_code,
+				'status' => 'Active',
+			])->first('percentage_off');
+
+			$discount_amount = ($percentage_off / 100) * $amount;
+			$amount = $amount - $discount_amount;
+		}
+
 		// Get other information
 		$user_id = auth()->user()->id;
 		$ref_id = time() . rand(10*45, 100*98);
@@ -52,6 +65,17 @@ class TradeHistoryController extends Controller
 
 		// Get and check user balance
 		$user_balance = auth()->user()->balance;
+
+		// Get referrer and update referer bonus is available
+		$referer = auth()->user()->referer;
+
+		if(!empty($referer)){
+			$referral_percentage = ($referral_percentage / 100) * $amount;
+			$referal_bonus = User::where('id', $referer)->first('referal_bonus');
+			User::where('id', $referer)->update([
+				'referal_bonus' => $referal_bonus + $referral_percentage,
+			]);
+		}
 
 		if($user_balance < $amount){
 			AuditLog::create([
@@ -116,6 +140,7 @@ class TradeHistoryController extends Controller
 			'trade_source' => 'Balance',
 			'trade_bonus' => $trade_bonus,
 			'trade_end_date' => $trade_end_date,
+			'status' => 'Active',
 		]);
 
 		// Update user balance

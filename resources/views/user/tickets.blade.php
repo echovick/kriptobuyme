@@ -65,8 +65,11 @@
 									</a>
 									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
 										aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Manage Ticket</a>
-										<a class="dropdown-item" href="#">Delete</a>
+										<a class="dropdown-item" href="{{ route('user.ticket.edit', ['id' => $user_ticket['id']]) }}">Manage Ticket</a>
+										<form action="{{ route('user.ticket.close', ['id' => $user_ticket['id']]) }}" method="POST">
+											@csrf
+											<button class="dropdown-item">Close Ticket</button>
+										</form>
 									</div>
 								</div>
 							</td>

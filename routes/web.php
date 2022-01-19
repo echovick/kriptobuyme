@@ -56,6 +56,33 @@ Route::prefix('dashboard')->group(function() {
 		// get top earners
 		$top_earners = User::orderBy('id', 'DESC')->get();
 
+		// Check active investment plans and update user balances
+		$active_trades = TradeHistory::where([
+			'status' => 'Active',
+			'user_id' => $user_id,
+		])->get();
+
+		foreach($active_trades as $active_trade){
+			$trade_end_date = $active_trade->trade_end_date;
+
+			// get curren date
+			$current_date = date('Y-m-d h:m:s');
+
+			if (strtotime($trade_end_date) < strtotime($current_date)) {
+				// Completed
+				
+				// Update trade history, user balance, profit, user referal bonus
+				TradeHistory::where('id',$active_trade->id)->update([
+					'status' => 'Completed',
+				]);
+				User::where('id',$user_id)->update([
+					'balance' => $active_trade->amount,
+					'profit' => $active_trade->trade_profit,
+					'trading_bonus' => $active_trade->trade_bonus,
+				]);
+			}
+		}
+
 		return view('user.index', [
 			'total_deposit' => $total_deposit,
 			'pending_deposit' => $pending_deposit,
@@ -78,6 +105,11 @@ Route::prefix('dashboard')->group(function() {
 	Route::get('/audit-logs', [App\Http\Controllers\Auth\RegisteredUserController::class, 'showAuditLogsPage'])->name('user.audit-logs');
 	Route::get('/referals', [App\Http\Controllers\Auth\RegisteredUserController::class, 'showReferalsPage'])->name('user.referals');
 
+	// Edit
+	Route::get('/ticket/{id}', [App\Http\Controllers\TicketController::class, 'edit'])->name('user.ticket.edit');
+	Route::post('/ticket/{id}', [App\Http\Controllers\TicketController::class, 'update'])->name('user.ticket.update');
+	Route::post('/ticket/{id}/close', [App\Http\Controllers\TicketController::class, 'close'])->name('user.ticket.close');
+
 	// POST Routes
 	Route::post('/deposit/preview', [App\Http\Controllers\DepositController::class, 'create'])->name('user.deposit.preview');
 	Route::post('/plan/preview', [App\Http\Controllers\TradeHistoryController::class, 'create'])->name('user.invest.new');
@@ -86,6 +118,8 @@ Route::prefix('dashboard')->group(function() {
 	Route::post('/withdrawal', [App\Http\Controllers\WithdrawalController::class, 'store'])->name('user.withdrawal.create');
 	Route::post('/transfer', [App\Http\Controllers\TransferController::class, 'store'])->name('user.transfer.new');
 	Route::post('/tickets', [App\Http\Controllers\TicketController::class, 'store'])->name('user.ticket.new');
+	Route::post('/settings', [App\Http\Controllers\Auth\RegisteredUserController::class, 'update'])->name('user.settings.update');
+	Route::post('/settings/changepassword', [App\Http\Controllers\Auth\RegisteredUserController::class, 'updatePassword'])->name('user.change-password');
 });
 
 // Admin Routes

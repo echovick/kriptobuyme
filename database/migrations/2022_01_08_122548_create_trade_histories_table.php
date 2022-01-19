@@ -23,7 +23,7 @@ class CreateTradeHistoriesTable extends Migration
 			$table->integer('trade_duration')->unsigned()->nullable()->default(0);
 			$table->float('trade_profit')->nullable()->default(00.0);
 			$table->string('trade_source', 100)->nullable()->default('');
-			$table->float('trade_bonus')->nullable()->default(123.45);
+			$table->float('trade_bonus')->nullable()->default('');
 			$table->timestamps();
 		});
 	}

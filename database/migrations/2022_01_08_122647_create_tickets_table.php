@@ -20,7 +20,7 @@ class CreateTicketsTable extends Migration
 			$table->string('ticket_id', 100)->nullable()->default('');
 			$table->string('status', 100)->nullable()->default('Open');
 			$table->string('subject', 100)->nullable()->default('');
-			$table->string('content', 100)->nullable()->default('');
+			$table->longText('content')->nullable()->default('');
 			$table->timestamps();
 		});
 	}

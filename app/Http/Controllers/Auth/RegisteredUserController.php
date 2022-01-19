@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Password;
 
 class RegisteredUserController extends Controller
 {
@@ -238,5 +239,34 @@ class RegisteredUserController extends Controller
 		$user_referrals = User::where('referer', $user_id)->get();
 
 		return view('user.referals')->with('user_referrals', $user_referrals);
+	}
+
+	public function update(Request $request){
+		// Get user id
+		$user_id = auth()->user()->id;
+		
+		User::where('id',$user_id)->update([
+			'first_name' => $request->input('first_name'),
+			'last_name' => $request->input('last_name'),
+			'username' => $request->input('username'),
+			'city' => $request->input('city'),
+			'country' => $request->input('country'),
+			'email' => $request->input('email'),
+		]);
+
+		return redirect()->route('user.settings');
+	}
+
+	public function updatePassword(Request $request){
+		// Get user id
+		$user_id = auth()->user()->id;
+
+		// Check password
+		$password = $request->input('password');
+		$check_password = auth()->user()->password === Hash::make($request->input('password')) ? 'true' : 'false';
+
+		dd(Hash::make($request->input('password')));
+
+		// $2y$10$z4h2CLggzgNclrlUSJQm9OtkVC7qfTah5LJnN3ZZ9kTiFvIVOU1rq
 	}
 }

@@ -24,7 +24,8 @@ class TradeHistory extends Model
 		'trade_duration',
 		'trade_source',
 		'trade_bonus',
-		'trade_end_date'
+		'trade_end_date',
+		'status',
 	];
 
 
