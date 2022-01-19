@@ -4,6 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\DepositMethod;
+use App\Models\WithdrawalMethod;
+use App\Models\User;
+use App\Models\Ticket;
+use App\Models\Deposit;
+use App\Models\Review;
+use App\Models\Withdrawal;
+use App\Models\Coupon;
+use App\Models\Plan;
+use App\Models\TradeHistory;
+use App\Models\Message;
+use App\Models\Transfer;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -25,7 +36,64 @@ class AdminController extends Controller
 	 */
 	public function index()
 	{
-		return view('admin.index');
+		// Get number of active users
+		$active_users = User::where('status', 'Active')->count();
+
+		// Get number of blocked users
+		$blocked_users = User::where('status', 'Blocked')->count();
+
+		// Get number of open tickets
+		$open_ticket = Ticket::where('status', 'Open')->count();
+
+		// Get number of closed tickets
+		$closed_ticket = Ticket::where('status', 'Closed')->count();
+		
+		// Get number of published platform reviews
+		$published_platform_reviews = Review::where('status', 'Published')->count();
+
+		// Get number of pending platform reviews
+		$pending_platform_reviews = Review::where('status', 'Pending')->count();
+
+		// Get number of pending deposits
+		$pending_deposits = Deposit::where('status', 'Pending')->count();
+
+		// Get number of approved deposits
+		$approved_deposits = Deposit::where('status', 'Confirmed')->count();
+
+		// Get number of pending withdrawals
+		$pending_withdrawals = Withdrawal::where('status', 'Pending')->count();
+
+		// Get number of aproved withrawals
+		$approved_withdrawals = Withdrawal::where('status', 'Confirmed')->count();
+
+		// get number of active investment plans
+		$active_plans = Plan::where('status', 'Active')->count();
+
+		// get number of disabled plans
+		$inactive_plans = Plan::where('status', 'Inactive')->count();
+
+		// Get number of active investments
+		$active_investments = TradeHistory::where('status', 'Active')->count();
+
+		// get numbe of completed investments
+		$completed_investments = TradeHistory::where('status','Completed')->count();
+
+		return view('admin.index', [
+			'active_users' => $active_users,
+			'blocked_users' => $blocked_users,
+			'open_ticket' => $open_ticket,
+			'closed_ticket' => $closed_ticket,
+			'published_platform_reviews' => $published_platform_reviews,
+			'pending_platform_reviews' => $pending_platform_reviews,
+			'pending_deposits' => $pending_deposits,
+			'approved_deposits' => $approved_deposits,
+			'pending_withdrawals' => $pending_withdrawals,
+			'approved_withdrawals' => $approved_withdrawals,
+			'active_plans' => $active_plans,
+			'inactive_plans' => $inactive_plans,
+			'active_investments' => $active_investments,
+			'completed_investments' => $completed_investments,
+		]);
 	}
 
 	/**
@@ -34,7 +102,9 @@ class AdminController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function showCustomersPage(){
-		return view('admin.customers');
+		// Get all users
+		$users = User::all();
+		return view('admin.customers')->with('users', $users);
 	}
 
 	/**
@@ -43,7 +113,9 @@ class AdminController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function showTicketsPage(){
-		return view('admin.tickets');
+		// Get all tickets
+		$tickets = Ticket::all();
+		return view('admin.tickets')->with('tickets', $tickets);
 	}
 
 	/**
@@ -61,7 +133,9 @@ class AdminController extends Controller
 	 * @return \Illuminate\Http\Response
 	 */
 	public function showMessagesPage(){
-		return view('admin.messages');
+		// Get all messages
+		$messages = Message::all();
+		return view('admin.messages')->with('messages', $messages);
 	}
 
 	public function showPaymentGatewaysPage(){
@@ -77,35 +151,53 @@ class AdminController extends Controller
 	}
 
 	public function showDepositLogsPage(){
-		return view('admin.deposit-logs');
+		// get all deposit logs
+		$deposits = Deposit::all();
+
+		return view('admin.deposit-logs')->with('deposits',$deposits);
 	}
 
 	public function showPayoutMethodsPage(){
-		return view('admin.payout-methods');
+		// get all withdrawal methods
+
+		$withdrawalmethods = WithdrawalMethod::all();
+		return view('admin.payout-methods')->with('withdrawalmethods', $withdrawalmethods);
 	}
 
 	public function showPayoutsLogPage(){
-		return view('admin.payout-logs');
+		// Get all withdrawal logs
+		$withdrawals = Withdrawal::all();
+		return view('admin.payout-logs')->with('withdrawals', $withdrawals);
 	}
 
 	public function showOpenTradesPage(){
-		return view('admin.open-trades');
+		// Get all open trades
+		$open_trades = TradeHistory::where('status', 'Open')->get();
+		return view('admin.open-trades')->with('open_trades',$open_trades);
 	}
 
 	public function showClosedTradesPage(){
-		return view('admin.closed-trades');
+		// get all closed trades
+		$closed_trades = TradeHistory::where('status', 'Open')->get();
+		return view('admin.closed-trades')->with('closed_trades', $closed_trades);
 	}
 
 	public function showPlansSettingsPage(){
-		return view('admin.plans-settings');
+		// get all plans
+		$plans = Plan::all();
+		return view('admin.plans-settings')->with('plans', $plans);
 	}
 
 	public function showCouponsPage(){
-		return view('admin.coupons');
+		// Show coupons
+		$coupons = Coupon::all();
+		return view('admin.coupons')->with('coupons', $coupons);
 	}
 
 	public function showTransferLogsPage(){
-		return view('admin.transfer-logs');
+		// SHow transfers
+		$transfers = Transfer::all();
+		return view('admin.transfer-logs')->with('transfers',$transfers);
 	}
 
 	public function showReferalEarningsPage(){

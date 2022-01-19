@@ -130,6 +130,12 @@ Route::prefix('admin')->group(function() {
 	Route::get('/about-us', [App\Http\Controllers\Auth\AdminController::class, 'showAboutPage'])->name('admin.about-us');
 	Route::get('/social-links', [App\Http\Controllers\Auth\AdminController::class, 'showSocialLinksPage'])->name('admin.social-links');
 
+	// Edit
+	Route::get('/customer/{id}', [App\Http\Controllers\Auth\AdminController::class, 'showCustomersPage'])->name('admin.customers.edit');	
+	Route::get('/ticket/{id}', [App\Http\Controllers\Auth\AdminController::class, 'showTicketsPage'])->name('admin.tickets.edit');
+
 	// Admin Post Routes
 	Route::post('/payment-gateways', [App\Http\Controllers\DepositMethodController::class, 'store'])->name('deposit-method.create');
+	Route::post('/payout-methods', [App\Http\Controllers\WithdrawalMethodController::class, 'store'])->name('payout-method.create');
+	Route::post('/plans-settings', [App\Http\Controllers\PlanController::class, 'store'])->name('admin.plan.create');
 });

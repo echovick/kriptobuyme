@@ -36,7 +36,13 @@ class WithdrawalMethodController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		$name = $request->input('name');
+		WithdrawalMethod::create([
+			'name' => $name,
+			'status' => 'Active',
+		]);
+
+		return redirect()->route('admin.payout-methods', ['message' => 'successfull']);
 	}
 
 	/**

@@ -10,6 +10,16 @@ class WithdrawalMethod extends Model
 	use HasFactory;
 
 	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'name',
+		'status',
+	];
+
+	/**
 	 * Get all of the withdrawals for the WithdrawalMethod
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany

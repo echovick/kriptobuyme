@@ -38,16 +38,17 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($withdrawals as $withdrawal)
 						<tr>
-							<td>1</td>
-							<td>Ahmet Demirbas</td>
-							<td>$2,000</td>
-							<td>1DuE7UWeRmYZWTgVJiB6d1Tbgj9f8aGitm</td>
-							<td>Bitcoin Cash</td>
-							<td><span class="badge badge-danger p-2">Declined</span></td>
-							<td><span class="badge badge-primary p-2">ACCOUNT BALANCE</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
+							<td>{{ $withdrawal['id'] }}</td>
+							<td>{{ $withdrawal->user->username }}</td>
+							<td>${{ $withdrawal['amount'] }}</td>
+							<td>{{ $withdrawal['address_details'] }}</td>
+							<td>{{ $withdrawal->withdrwalMethod->name ?? '' }}</td>
+							<td><span class="badge badge-{{ $withdrawal['status'] == 'Approved' ? 'success' : 'danger' }} p-2">{{ $withdrawal['status'] }}</span></td>
+							<td><span class="badge badge-primary p-2">{{ strtoupper($withdrawal['type']) }}</span></td>
+							<td>{{ $withdrawal['created_at'] }}</td>
+							<td>{{ $withdrawal['updated_at'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -60,94 +61,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>Ahmet Demirbas</td>
-							<td>$2,000</td>
-							<td>1DuE7UWeRmYZWTgVJiB6d1Tbgj9f8aGitm</td>
-							<td>Bitcoin Cash</td>
-							<td><span class="badge badge-danger p-2">Declined</span></td>
-							<td><span class="badge badge-primary p-2">ACCOUNT BALANCE</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Ahmet Demirbas</td>
-							<td>$2,000</td>
-							<td>1DuE7UWeRmYZWTgVJiB6d1Tbgj9f8aGitm</td>
-							<td>Bitcoin Cash</td>
-							<td><span class="badge badge-danger p-2">Declined</span></td>
-							<td><span class="badge badge-primary p-2">ACCOUNT BALANCE</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Ahmet Demirbas</td>
-							<td>$2,000</td>
-							<td>1DuE7UWeRmYZWTgVJiB6d1Tbgj9f8aGitm</td>
-							<td>Bitcoin Cash</td>
-							<td><span class="badge badge-danger p-2">Declined</span></td>
-							<td><span class="badge badge-primary p-2">ACCOUNT BALANCE</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Ahmet Demirbas</td>
-							<td>$2,000</td>
-							<td>1DuE7UWeRmYZWTgVJiB6d1Tbgj9f8aGitm</td>
-							<td>Bitcoin Cash</td>
-							<td><span class="badge badge-danger p-2">Declined</span></td>
-							<td><span class="badge badge-primary p-2">ACCOUNT BALANCE</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

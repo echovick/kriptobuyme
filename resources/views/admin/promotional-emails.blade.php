@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container-fluid">
+	<div class="alert alert-info pb-0">
+		<p class="small">Set Up Your email client before you'll be able to send promotional emails</p>
+	</div>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card shadow mb-4">

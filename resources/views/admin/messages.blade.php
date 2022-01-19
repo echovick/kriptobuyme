@@ -13,7 +13,6 @@
 						<tr class="small">
 							<th>S/N</th>
 							<th>NAME</th>
-							<th>MOBILE</th>
 							<th>EMAIL</th>
 							<th>MESSAGE</th>
 							<th>CREATED</th>
@@ -25,7 +24,6 @@
 						<tr class="small">
 							<th>S/N</th>
 							<th>NAME</th>
-							<th>MOBILE</th>
 							<th>EMAIL</th>
 							<th>MESSAGE</th>
 							<th>CREATED</th>
@@ -34,16 +32,16 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($messages as $message)
 						<tr>
-							<td>1</td>
-							<td>FrancisDD</td>
-							<td>09028375632</td>
-							<td>francisDD@outlook.com</td>
+							<td>{{ $message['id'] }}</td>
+							<td>{{ $message->user->username }}</td>
+							<td>{{ $message->user->email }}</td>
 							<td>
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim, voluptates laudantium veritatis ab distinctio accusantium molestiae saepe vel laborum provident quibusdam, eos a quia exercitationem. Aperiam id ducimus doloribus quae.
+								{{ $message['message'] }}
 							</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
+							<td>{{ $message['created_at'] }}</td>
+							<td>{{ $message['updated_at'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -56,6 +54,7 @@
 								</div>
 							</td>
 						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

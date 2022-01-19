@@ -40,17 +40,18 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($open_trades as $open_trade)
 						<tr>
-							<td>1</td>
-							<td>n56TFooUDl2rDuRL</td>
-							<td>Muhammedabdulvahab</td>
-							<td>$519</td>
-							<td>STARTER/COMPLEX</td>
-							<td>1.5%</td>
-							<td>1Day(s)</td>
-							<td>$0</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
+							<td>{{ $open_trade['id'] }}</td>
+							<td>{{ $open_trade['reference_id'] }}</td>
+							<td>{{ $open_trade->user->username }}</td>
+							<td>${{ $open_trade['amount'] }}</td>
+							<td>{{ $open_trade->plan->plan_name }}</td>
+							<td>{{ $open_trade['daily_percentage'] }}%</td>
+							<td>{{ $open_trade['trade_duration'] }}Day(s)</td>
+							<td>${{ $open_trade['trade_profit'] }}</td>
+							<td>{{ $open_trade['created_at'] }}</td>
+							<td>{{ $open_trade['updated_at'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -63,98 +64,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>n56TFooUDl2rDuRL</td>
-							<td>Muhammedabdulvahab</td>
-							<td>$519</td>
-							<td>STARTER/COMPLEX</td>
-							<td>1.5%</td>
-							<td>1Day(s)</td>
-							<td>$0</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>n56TFooUDl2rDuRL</td>
-							<td>Muhammedabdulvahab</td>
-							<td>$519</td>
-							<td>STARTER/COMPLEX</td>
-							<td>1.5%</td>
-							<td>1Day(s)</td>
-							<td>$0</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>n56TFooUDl2rDuRL</td>
-							<td>Muhammedabdulvahab</td>
-							<td>$519</td>
-							<td>STARTER/COMPLEX</td>
-							<td>1.5%</td>
-							<td>1Day(s)</td>
-							<td>$0</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>n56TFooUDl2rDuRL</td>
-							<td>Muhammedabdulvahab</td>
-							<td>$519</td>
-							<td>STARTER/COMPLEX</td>
-							<td>1.5%</td>
-							<td>1Day(s)</td>
-							<td>$0</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

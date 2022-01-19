@@ -35,7 +35,25 @@ class PlanController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		$plan_name = $request->input('plan_name');
+		$daily_percentage = $request->input('daily_percentage');
+		$min_amount = $request->input('min_amount');
+		$max_amount = $request->input('max_amount');
+		$plan_duration = $request->input('plan_duration');
+		$referral_percentage = $request->input('referral_percentage');
+		$bonus_percentage = $request->input('bonus_percentage');
+
+		Plan::create([
+			'plan_name' => $plan_name,
+			'daily_percentage' => $daily_percentage,
+			'min_amount' => $min_amount,
+			'max_amount' => $max_amount,
+			'plan_duration' => $plan_duration,
+			'referral_percentage' => $referral_percentage,
+			'bonus_percentage' => $bonus_percentage,
+		]);
+
+		return redirect()->route('admin.plans-settings', ['message' => 'successfull']);
 	}
 
 	/**

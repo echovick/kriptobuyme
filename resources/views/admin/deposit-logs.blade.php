@@ -38,16 +38,17 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($deposits as $deposit)
 						<tr>
-							<td>1</td>
-							<td>Hua Jun</td>
-							<td>$5,077</td>
-							<td>Bitcoin</td>
-							<td>tlcCR3mkFssGUxi8	</td>
-							<td>$10</td>
-							<td><span class="badge badge-danger p-2">Pending</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
+							<td>{{ $deposit['id'] }}</td>
+							<td>{{ $deposit->user->username }}</td>
+							<td>{{ $deposit['amount'] }}</td>
+							<td>{{ $deposit->depositMethod->name }}</td>
+							<td>{{ $deposit['reference_id'] }}</td>
+							<td>${{ $deposit['amount'] }}</td>
+							<td><span class="badge badge-{{ $deposit['status'] == 'Active' ? 'primary' : 'warning' }} p-2">{{ $deposit['status'] }}</span></td>
+							<td>{{ $deposit['created_at'] }}</td>
+							<td>{{ $deposit['updated_at'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -63,106 +64,7 @@
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>Hua Jun</td>
-							<td>$5,077</td>
-							<td>Bitcoin</td>
-							<td>tlcCR3mkFssGUxi8	</td>
-							<td>$10</td>
-							<td><span class="badge badge-danger p-2">Pending</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-										aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Decline</a>
-										<a class="dropdown-item" href="#">Approve</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Hua Jun</td>
-							<td>$5,077</td>
-							<td>Bitcoin</td>
-							<td>tlcCR3mkFssGUxi8	</td>
-							<td>$10</td>
-							<td><span class="badge badge-danger p-2">Pending</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-										aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Decline</a>
-										<a class="dropdown-item" href="#">Approve</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Hua Jun</td>
-							<td>$5,077</td>
-							<td>Bitcoin</td>
-							<td>tlcCR3mkFssGUxi8	</td>
-							<td>$10</td>
-							<td><span class="badge badge-danger p-2">Pending</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-										aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Decline</a>
-										<a class="dropdown-item" href="#">Approve</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Hua Jun</td>
-							<td>$5,077</td>
-							<td>Bitcoin</td>
-							<td>tlcCR3mkFssGUxi8	</td>
-							<td>$10</td>
-							<td><span class="badge badge-danger p-2">Pending</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-										aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Decline</a>
-										<a class="dropdown-item" href="#">Approve</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

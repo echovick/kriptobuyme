@@ -41,13 +41,14 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($coupons as $coupon)
 						<tr>
-							<td>1</td>
-							<td>JHGFDFGHJK</td>
-							<td>1.5%</td>
-							<td><span class="badge badge-success p-2">Active</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
+							<td>{{ $coupon['id'] }}</td>
+							<td>{{ $coupon['coupon_code'] }}</td>
+							<td>{{ number_format($coupon['percentage_off']) }}%</td>
+							<td><span class="badge badge-{{ $coupon['status'] == 'Active' ? 'success' : 'warning' }} p-2">Active</span></td>
+							<td>{{ $coupon['created_at'] }}</td>
+							<td>{{ $coupon['updated_at'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -60,6 +61,7 @@
 								</div>
 							</td>
 						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>

@@ -36,50 +36,19 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($transfers as $transfer)
 						<tr>
-							<td>1</td>
-							<td>UDKmNQtaw4eC6jYM</td>
-							<td>jamespatrick.btc@gmail.com</td>
-							<td>kelennamdi07@gmail.com</td>
-							<td>$100</td>
-							<td>$10</td>
-							<td><span class="badge badge-success p-2">Successfull</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
+							<td>{{ $transfer['id'] }}</td>
+							<td>{{ $transfer['reference_id'] }}</td>
+							<td>{{ $transfer->sender->email }}</td>
+							<td>{{ $transfer->receiver->email }}</td>
+							<td>${{ $transfer['amount'] }}</td>
+							<td>${{ $transfer['charge'] }}</td>
+							<td><span class="badge badge-{{ $transfer['status'] == 'Successfull' ? 'success' : 'warning' }} p-2">{{ $transfer['status'] }}</span></td>
+							<td>{{ $transfer['created_at'] }}</td>
+							<td>{{ $transfer['updated_at'] }}</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>UDKmNQtaw4eC6jYM</td>
-							<td>jamespatrick.btc@gmail.com</td>
-							<td>kelennamdi07@gmail.com</td>
-							<td>$100</td>
-							<td>$10</td>
-							<td><span class="badge badge-info p-2">Returned</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>UDKmNQtaw4eC6jYM</td>
-							<td>jamespatrick.btc@gmail.com</td>
-							<td>kelennamdi07@gmail.com</td>
-							<td>$100</td>
-							<td>$10</td>
-							<td><span class="badge badge-success p-2">Successfull</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>UDKmNQtaw4eC6jYM</td>
-							<td>jamespatrick.btc@gmail.com</td>
-							<td>kelennamdi07@gmail.com</td>
-							<td>$100</td>
-							<td>$10</td>
-							<td><span class="badge badge-info p-2">Returned</span></td>
-							<td>2021/12/19 06:24:PM</td>
-							<td>2021/12/19 06:24:PM</td>
-						</tr>
+						@endforeach
 					</tbody>
 				</table>
 			</div>
