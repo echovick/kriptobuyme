@@ -178,7 +178,7 @@ class AdminController extends Controller
 
 	public function showClosedTradesPage(){
 		// get all closed trades
-		$closed_trades = TradeHistory::where('status', 'Open')->get();
+		$closed_trades = TradeHistory::where('status', 'Completed')->get();
 		return view('admin.closed-trades')->with('closed_trades', $closed_trades);
 	}
 
@@ -262,5 +262,123 @@ class AdminController extends Controller
 
 	public function showSocialLinksPage(){
 		return view('admin.social-links');
+	}
+
+	// Function to display form to manage or edit specific customer
+	public function editCustomer($id){
+		$customer = User::find($id);
+		$clientIp = request()->getClientIp();
+		return view('admin.edit-customer', [
+			'customer' => $customer,
+			'client_ip' => $clientIp,
+		]);
+	}
+
+	// Function to update customer
+	public function updateCustomer(Request $request, $id){
+		User::where('id', $id)->update([
+			'first_name' => $request->input('first_name'),
+			'last_name' => $request->input('last_name'),
+			'username' => $request->input('username'),
+			'email' => $request->input('email'),
+			'city' => $request->input('city'),
+			'country' => $request->input('country'),
+			'balance' => $request->input('balance'),
+		]);
+
+		return redirect()->route('admin.customers.edit', ['id' => $id]);
+	}
+
+	// Return form to send mail to customer
+	public function customerSendMail($id){
+		$user = User::find($id);
+		return view('admin.send-user-email')->with('user', $user);
+	}
+
+	// FUnction to send the mail
+	public function customerMailer(Request $request, $id){
+		$user = User::find($id);
+		// Function to send mail
+
+		return view('admin.send-user-email', [
+			'message' => 'Cannot send mail, Please setup SMTP',
+			'user' => $user,
+		]);
+	}
+	
+	// function to block customer
+	public function blockCustomer($id){
+		User::where('id', $id)->update([
+			'status' => 'Blocked',
+		]);
+
+		return redirect()->route('admin.customers');
+	}
+
+	// Function to activate customer
+	public function activateCustomer($id){
+		User::where('id', $id)->update([
+			'status' => 'Active',
+		]);
+
+		return redirect()->route('admin.customers');
+	}
+
+	public function deleteCustomer($id){
+		$user = User::find($id);
+
+		$user->delete();
+		return redirect()->route('admin.customers');
+	}
+
+	// FUnction to approve deposit
+	public function approveDeposit($id){
+		Deposit::where('id', $id)->update(['status' => 'Active']);
+
+		return redirect()->route('admin.deposit-logs');
+	}
+
+	// Function to decline deposit
+	public function declineDeposit($id){
+		Deposit::where('id', $id)->update(['status' => 'Declined']);
+
+		return redirect()->route('admin.deposit-logs');
+	}
+
+	// Function to delete deposit
+	public function deleteDeposit($id){
+		$deposit = Deposit::find($id);
+		$deposit->delete();
+
+		return redirect()->route('admin.deposit-logs');
+	}
+
+	// Function to return form for editing a support ticket
+	public function editTicket($id){
+		$this_ticket = Ticket::find($id);
+
+		return view('admin.manage-ticket')->with('this_ticket', $this_ticket);
+	}
+
+	// Function to reopen ticket
+	public function openTicket($id){
+		Ticket::where('id', $id)->update(['status' => 'Open']);
+
+		return redirect()->route('admin.tickets');
+	}
+
+	// Function to close ticket
+	public function closeTicket($id){
+		Ticket::where('id', $id)->update(['status' => 'Closed']);
+
+		return redirect()->route('admin.tickets');
+	}
+
+	// Function to close ticket
+	public function deleteTicket($id){
+		$ticket = Ticket::find($id);
+		$ticket->delete();
+
+		return redirect()->route('admin.tickets');
 	}
 }

@@ -96,7 +96,7 @@ class TicketController extends Controller
 	 */
 	public function edit($id)
 	{
-		$ticket = Ticket::find($id)->first();
+		$ticket = Ticket::find($id);
 
 		return view('user.manage-ticket')->with('ticket', $ticket);
 	}
@@ -111,15 +111,21 @@ class TicketController extends Controller
 	public function update(Request $request, $id)
 	{
 		$message = $request->input('message');
-		$ticket = Ticket::find($id)->first();
+		$ticket = Ticket::find($id);
 
 		$content = unserialize($ticket->content);
+
+		if($request->input('user_type') == 'Admin'){
+			$user_id = $request->input('user_id');
+		}else{
+			$user_id = auth()->user()->id;
+		}
 
 		// Create new array
 		// Create chat array
 		$new_content = array(
 			'user_type' => $request->input('user_type'),
-			'user_id' => auth()->user()->id,
+			'user_id' => $user_id,
 			'message' => $message,
 			'timestamp' => date('Y-m-d h:m:s'),
 		);
@@ -130,7 +136,11 @@ class TicketController extends Controller
 			'content' => serialize($content),
 		]);
 
-		return redirect()->route('user.ticket.edit', ['id' => $id]);
+		if($request->input('user_type') == 'Admin'){
+			return redirect()->route('admin.tickets.edit', ['id' => $id]);	
+		}else{
+			return redirect()->route('user.ticket.edit', ['id' => $id]);
+		}
 	}
 
 	/**

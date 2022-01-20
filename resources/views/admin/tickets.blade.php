@@ -55,7 +55,23 @@
 									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
 										aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="{{ route('admin.tickets.edit', ['id' => $ticket['id']]) }}">Manage Ticket</a>
-										<a class="dropdown-item" href="#">Delete</a>
+										@if ($ticket['status'] == 'Closed')
+											<form action="{{ route('admin.ticket.open', $ticket['id']) }}" method="POST">
+												@csrf
+												<button type="submit" class="dropdown-item" href="#">Re-Open</button>
+											</form>
+										@endif
+										@if ($ticket['status'] == 'Open')
+											<form action="{{ route('admin.ticket.close', $ticket['id']) }}" method="POST">
+												@csrf
+												<button type="submit" class="dropdown-item" href="#">Close</button>
+											</form>
+										@endif
+										<form action="{{ route('admin.ticket.delete', $ticket['id']) }}" method="POST">
+											@csrf
+											@method('DELETE');
+											<button type="submit" class="dropdown-item" href="#">Delete</button>
+										</form>
 									</div>
 								</div>
 							</td>

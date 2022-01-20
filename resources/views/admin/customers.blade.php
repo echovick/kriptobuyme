@@ -46,7 +46,7 @@
 							<td>{{ $user['first_name'].' '.$user['last_name'] }}</td>
 							<td>{{ $user['username'] }}</td>
 							<td>{{ $user['email'] }}</td>
-							<td><span class="badge badge-{{ $user['status'] == 'Active' ? 'primary' : 'danger' }} p-2">Active</span></td>
+							<td><span class="badge badge-{{ $user['status'] == 'Active' ? 'primary' : 'danger' }} p-2">{{ $user['status'] }}</span></td>
 							<td>${{ number_format($user['balance']) }}</td>
 							<td>${{ number_format($user['profit']) }}</td>
 							<td>${{ number_format($user['referal_bonus']) }}</td>
@@ -61,9 +61,23 @@
 									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
 										aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="{{ route('admin.customers.edit', ['id' => $user['id']]) }}">Manage Customers</a>
-										<a class="dropdown-item" href="#">Send Email</a>
-										<a class="dropdown-item" href="#">Block</a>
-										<a class="dropdown-item" href="#">Delete</a>
+										<a class="dropdown-item" href="{{ route('admin.customer.mail', ['id' => $user['id']]) }}">Send Email</a>
+										@if ($user['status'] == 'Blocked')
+										<form action="{{ route('admin.customer.activate', ['id' => $user['id']]) }}" method="POST">
+										@csrf
+										<button class="dropdown-item" href="">Activate</button>
+										</form>											 
+										@else
+										<form action="{{ route('admin.customer.block', ['id' => $user['id']]) }}" method="POST">
+										@csrf
+										<button class="dropdown-item" href="">Block</button>
+										</form>
+										@endif
+										<form action="{{ route('admin.customer.delete', $user['id']) }}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button type="submit" class="dropdown-item" href="#">Delete</button>
+										</form>
 									</div>
 								</div>
 							</td>

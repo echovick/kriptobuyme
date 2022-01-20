@@ -46,7 +46,7 @@
 							<td>{{ $deposit->depositMethod->name }}</td>
 							<td>{{ $deposit['reference_id'] }}</td>
 							<td>${{ $deposit['amount'] }}</td>
-							<td><span class="badge badge-{{ $deposit['status'] == 'Active' ? 'primary' : 'warning' }} p-2">{{ $deposit['status'] }}</span></td>
+							<td><span class="badge badge-{{ $deposit['status'] == 'Active' ? 'primary' : 'danger' }} p-2">{{ $deposit['status'] }}</span></td>
 							<td>{{ $deposit['created_at'] }}</td>
 							<td>{{ $deposit['updated_at'] }}</td>
 							<td>
@@ -55,11 +55,20 @@
 										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
 									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-										aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Decline</a>
-										<a class="dropdown-item" href="#">Approve</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+										<form action="{{ route('admin.deposit.delete', $deposit['id']) }}" method="POST">
+											@csrf
+											@method('DELETE')
+											<button type="submit" class="dropdown-item" href="#">Delete</button>
+										</form>
+										<form action="{{ route('admin.deposit.decline', $deposit['id']) }}" method="POST">
+											@csrf
+											<button type="submit" class="dropdown-item" href="#">Decline</button>
+										</form>
+										<form action="{{ route('admin.deposit.approve', $deposit['id']) }}" method="POST">
+											@csrf
+											<button type="submit" class="dropdown-item" href="#">Approve</button>
+										</form>
 									</div>
 								</div>
 							</td>

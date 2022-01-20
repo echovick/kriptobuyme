@@ -39,7 +39,7 @@
 				<hr class="sidebar-divider my-0">
 
 				<!-- Nav Item - Dashboard -->
-				<li class="nav-item">
+				<li class="nav-item {{ request()->is('admin') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('admin.dashboard') }}">
 						<i class="fas fa-fw fa-tachometer-alt"></i>
 						<span>Dashboard</span></a>
@@ -53,86 +53,86 @@
 					Client
 				</div>
 
-				<li class="nav-item">
+				<li class="nav-item {{ request()->is('admin/customers') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('admin.customers') }}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-users"></i>
 						<span>Customers</span></a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item {{ request()->is('admin/tickets') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('admin.tickets') }}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-ticket-alt"></i>
 						<span>Support Tickets</span></a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item {{ request()->is('admin/promotional-emails') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('admin.promotional-emails') }}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-mail-bulk"></i>
 						<span>Promotional Emails</span></a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item {{ request()->is('admin/messages') ? 'active' : '' }}">
 					<a class="nav-link" href="{{ route('admin.messages') }}">
-						<i class="fas fa-fw fa-tachometer-alt"></i>
+						<i class="fas fa-fw fa-envelope"></i>
 						<span>Messages</span></a>
 				</li>
 
 				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
+				<li class="nav-item {{ (request()->is('admin/payment-gateways') || request()->is('admin/bank-transfer') || request()->is('admin/deposit-logs')) ? 'active' : '' }}">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1"
 						aria-expanded="true" aria-controls="collapse1">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-fw fa-wallet"></i>
 						<span>Deposit</span>
 					</a>
 					<div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="{{ route('admin.payment-gateways') }}">Payment Gateways</a>
-							<a class="collapse-item" href="{{ route('admin.bank-transfer') }}">Bank Transfer & logs</a>
-							<a class="collapse-item" href="{{ route('admin.deposit-logs') }}">Deposit logs</a>
+							<a class="collapse-item {{ request()->is('admin/payment-gateways') ? 'active' : '' }}" href="{{ route('admin.payment-gateways') }}">Payment Gateways</a>
+							<a class="collapse-item {{ request()->is('admin/bank-transfer') ? 'active' : '' }}" href="{{ route('admin.bank-transfer') }}">Bank Transfer & logs</a>
+							<a class="collapse-item {{ request()->is('admin/deposit-logs') ? 'active' : '' }}" href="{{ route('admin.deposit-logs') }}">Deposit logs</a>
 						</div>
 					</div>
 				</li>
 
 				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
+				<li class="nav-item {{ request()->is('admin/payout-methods') || request()->is('admin/payout-logs') ? 'active' : '' }}">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse2"
 						aria-expanded="true" aria-controls="collapse2">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-fw fa-money-check"></i>
 						<span>Payout</span>
 					</a>
 					<div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="{{ route('admin.payout-methods') }}">Payout Types</a>
-							<a class="collapse-item" href="{{ route('admin.payout-logs') }}">Withdraw Log</a>
+							<a class="collapse-item {{ request()->is('admin/payout-methods') ? 'active' : '' }}" href="{{ route('admin.payout-methods') }}">Payout Types</a>
+							<a class="collapse-item {{ request()->is('admin/payout-logs') ? 'active' : '' }}" href="{{ route('admin.payout-logs') }}">Withdraw Log</a>
 						</div>
 					</div>
 				</li>
 
 				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
+				<li class="nav-item {{ (request()->is('admin/open-trades') || request()->is('admin/closed-trades') || request()->is('admin/plans-settings') || request()->is('admin/coupons')) ? 'active' : '' }}">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3"
 						aria-expanded="true" aria-controls="collapse3">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-fw fa-hand-holding-usd"></i>
 						<span>Investment</span>
 					</a>
 					<div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="{{ route('admin.open-trades') }}">Open Trades</a>
-							<a class="collapse-item" href="{{ route('admin.closed-trades') }}">Closed Trades</a>
-							<a class="collapse-item" href="{{ route('admin.plans-settings') }}">Plans</a>
-							<a class="collapse-item" href="{{ route('admin.coupons') }}">Coupon</a>
+							<a class="collapse-item {{ request()->is('admin/open-trades') ? 'active' : '' }}" href="{{ route('admin.open-trades') }}">Open Trades</a>
+							<a class="collapse-item {{ request()->is('admin/closed-trades') ? 'active' : '' }}" href="{{ route('admin.closed-trades') }}">Closed Trades</a>
+							<a class="collapse-item {{ request()->is('admin/plans-settings') ? 'active' : '' }}" href="{{ route('admin.plans-settings') }}">Plans</a>
+							<a class="collapse-item {{ request()->is('admin/coupons') ? 'active' : '' }}" href="{{ route('admin.coupons') }}">Coupon</a>
 						</div>
 					</div>
 				</li>
 
 				<!-- Nav Item - Pages Collapse Menu -->
-				<li class="nav-item">
+				<li class="nav-item {{ request()->is('admin/transfer-logs') || request()->is('admin/referal-earnings') ? 'active' : '' }}" href="{{ route('admin.open-trades') }}">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4"
 						aria-expanded="true" aria-controls="collapse4">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-fw fa-share"></i>
 						<span>Transfer</span>
 					</a>
 					<div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="{{ route('admin.transfer-logs') }}">Transfer Logs</a>
-							<a class="collapse-item" href="{{ route('admin.referal-earnings') }}">Referral Earnings</a>
+							<a class="collapse-item {{ request()->is('admin/transfer-logs') ? 'active' : '' }}" href="{{ route('admin.transfer-logs') }}" href="{{ route('admin.transfer-logs') }}">Transfer Logs</a>
+							<a class="collapse-item {{ request()->is('admin/referal-earnings') ? 'active' : '' }}" href="{{ route('admin.open-trades') }}" href="{{ route('admin.referal-earnings') }}">Referral Earnings</a>
 						</div>
 					</div>
 				</li>
@@ -149,7 +149,7 @@
 				<li class="nav-item">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5"
 						aria-expanded="true" aria-controls="collapse5">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-fw fa-blog"></i>
 						<span>Blog</span>
 					</a>
 					<div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -164,7 +164,7 @@
 				<li class="nav-item">
 					<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse6"
 						aria-expanded="true" aria-controls="collapse6">
-						<i class="fas fa-fw fa-cog"></i>
+						<i class="fas fa-fw fa-globe"></i>
 						<span>Website Design</span>
 					</a>
 					<div id="collapse6" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -187,13 +187,13 @@
 
 				<li class="nav-item">
 					<a class="nav-link" href="{{ route('admin.settings') }}">
-						<i class="fas fa-fw fa-table"></i>
+						<i class="fas fa-fw fa-cog"></i>
 						<span>Settings</span></a>
 				</li>
 
 				<li class="nav-item">
 					<a class="nav-link" href="/admin/logout">
-						<i class="fas fa-fw fa-table"></i>
+						<i class="fas fa-fw fa-sign-out-alt"></i>
 						<span>Sign Out</span></a>
 				</li>
 

@@ -165,11 +165,26 @@ Route::prefix('admin')->group(function() {
 	Route::get('/social-links', [App\Http\Controllers\Auth\AdminController::class, 'showSocialLinksPage'])->name('admin.social-links');
 
 	// Edit
-	Route::get('/customer/{id}', [App\Http\Controllers\Auth\AdminController::class, 'showCustomersPage'])->name('admin.customers.edit');	
-	Route::get('/ticket/{id}', [App\Http\Controllers\Auth\AdminController::class, 'showTicketsPage'])->name('admin.tickets.edit');
+	Route::get('/customer/{id}', [App\Http\Controllers\Auth\AdminController::class, 'editCustomer'])->name('admin.customers.edit');	
+	Route::get('/send-mail/{id}', [App\Http\Controllers\Auth\AdminController::class, 'customerSendMail'])->name('admin.customer.mail');	
+	Route::get('/ticket/{id}', [App\Http\Controllers\Auth\AdminController::class, 'editTicket'])->name('admin.tickets.edit');
+
 
 	// Admin Post Routes
 	Route::post('/payment-gateways', [App\Http\Controllers\DepositMethodController::class, 'store'])->name('deposit-method.create');
 	Route::post('/payout-methods', [App\Http\Controllers\WithdrawalMethodController::class, 'store'])->name('payout-method.create');
 	Route::post('/plans-settings', [App\Http\Controllers\PlanController::class, 'store'])->name('admin.plan.create');
+	Route::post('/customer/{id}/update', [App\Http\Controllers\Auth\AdminController::class, 'updateCustomer'])->name('admin.customers.update');
+	Route::post('/send-mail/{id}/send', [App\Http\Controllers\Auth\AdminController::class, 'customerMailer'])->name('admin.customer.send-mail');
+	Route::post('/customer/{id}/block', [App\Http\Controllers\Auth\AdminController::class, 'blockCustomer'])->name('admin.customer.block');
+	Route::post('/customer/{id}/activate', [App\Http\Controllers\Auth\AdminController::class, 'activateCustomer'])->name('admin.customer.activate');
+	Route::delete('/customer/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteCustomer'])->name('admin.customer.delete');
+	Route::post('/deposit/{id}/approve', [App\Http\Controllers\Auth\AdminController::class, 'approveDeposit'])->name('admin.deposit.approve');
+	Route::post('/deposit/{id}/decline', [App\Http\Controllers\Auth\AdminController::class, 'declineDeposit'])->name('admin.deposit.decline');
+	Route::delete('/deposit/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteDeposit'])->name('admin.deposit.delete');
+	Route::post('/ticket/{id}', [App\Http\Controllers\TicketController::class, 'update'])->name('admin.ticket.update');
+	Route::post('/ticket/{id}/open', [App\Http\Controllers\Auth\AdminController::class, 'openTicket'])->name('admin.ticket.open');
+	Route::post('/ticket/{id}/close', [App\Http\Controllers\Auth\AdminController::class, 'closeTicket'])->name('admin.ticket.close');
+	Route::delete('/ticket/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteTicket'])->name('admin.ticket.delete');
+	
 });
