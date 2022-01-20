@@ -77,7 +77,7 @@ class RegisteredUserController extends Controller
 		$user_id = auth()->user()->id;
 
 		// Get deposit methods
-		$deposit_methods = DepositMethod::all();
+		$deposit_methods = DepositMethod::where('status', 'Active');
 
 		// get all deposits of user
 		$user_deposits = Deposit::where('user_id', $user_id)->get();

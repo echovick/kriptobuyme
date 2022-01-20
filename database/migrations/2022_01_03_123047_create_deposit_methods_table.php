@@ -15,10 +15,10 @@ class CreateDepositMethodsTable extends Migration
 	{
 		Schema::create('deposit_methods', function (Blueprint $table) {
 			$table->increments('id');
-			$table->string('name', 100)->nullable()->default('text');
-			$table->string('display_name', 100)->nullable()->default('text');
-			$table->integer('min')->unsigned()->nullable()->default(12);
-			$table->integer('max')->unsigned()->nullable()->default(12);
+			$table->string('name', 100)->nullable()->default('');
+			$table->string('display_name', 100)->nullable()->default('');
+			$table->integer('min')->unsigned()->nullable()->default(00.0);
+			$table->integer('max')->unsigned()->nullable()->default(00.0);
 			$table->float('fixed_charge_amount')->nullable()->default(00.0);
 			$table->float('percentage_charge')->nullable()->default(00.0);
 			$table->string('status', 100)->nullable()->default('Active');
