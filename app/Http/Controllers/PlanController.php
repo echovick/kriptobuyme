@@ -85,9 +85,19 @@ class PlanController extends Controller
 	 * @param  \App\Models\Plan  $plan
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Plan $plan)
+	public function update(Request $request, $id)
 	{
-		//
+		Plan::where('id', $id)->update([
+			'plan_name' => $request->input('plan_name'),
+			'daily_percentage' => $request->input('daily_percentage'),
+			'min_amount' => $request->input('min_amount'),
+			'max_amount' => $request->input('max_amount'),
+			'plan_duration' => $request->input('plan_duration'),
+			'referral_percentage' => $request->input('referral_percentage'),
+			'bonus_percentage' => $request->input('bonus_percentage'),
+		]);
+
+		return redirect()->route('admin.plans-settings');
 	}
 
 	/**

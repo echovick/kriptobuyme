@@ -4,7 +4,7 @@
 <div class="container-fluid">
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Users</h6>
+			<h6 class="m-0 font-weight-bold text-primary">Deposits</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -61,6 +61,7 @@
 											@method('DELETE')
 											<button type="submit" class="dropdown-item" href="#">Delete</button>
 										</form>
+										@if ($deposit['status'] == 'Pending')
 										<form action="{{ route('admin.deposit.decline', $deposit['id']) }}" method="POST">
 											@csrf
 											<button type="submit" class="dropdown-item" href="#">Decline</button>
@@ -69,6 +70,7 @@
 											@csrf
 											<button type="submit" class="dropdown-item" href="#">Approve</button>
 										</form>
+										@endif
 									</div>
 								</div>
 							</td>

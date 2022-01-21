@@ -10,13 +10,15 @@
 					<p class="small mt-2">Last updated: 2020/09/09 04:14:PM</p>
 				</div>
 				<div class="card-body">
-					<form>
+					<form action="{{ route('admin.bank-transfer.save') }}" method="POST">
+						@csrf
+						<input type="text" name="admin_id" value="{{ auth()->user()->id }}" hidden>
 						<div class="mb-3">
 							<label for="" class="font-weight-bold small">Name</label>
 							<div class="row">
 								<div class="col">
 									<input type="text" class="form-control txt-md" id="email"
-										placeholder="Enter Name" name="email">
+										placeholder="Enter Name" value="{{ auth()->user()->name }}" name="email" readonly>
 								</div>
 							</div>
 						</div>
@@ -25,7 +27,7 @@
 							<div class="row">
 								<div class="col">
 									<input type="text" class="form-control txt-md" id="email"
-										placeholder="Enter Bank name" name="email">
+										placeholder="Enter Bank name" value="{{ $AdminBankDetail->bank_name ?? '' }}" name="bank_name">
 								</div>
 							</div>
 						</div>
@@ -33,8 +35,8 @@
 							<label for="" class="font-weight-bold small">Bank address</label>
 							<div class="row">
 								<div class="col">
-									<input type="number" class="form-control txt-md" id="email"
-										placeholder="Enter Bank address" name="email">
+									<input type="text" class="form-control txt-md" id="email"
+										placeholder="Enter Bank address" value="{{ $AdminBankDetail->bank_address ?? '' }}" name="bank_address">
 								</div>
 							</div>
 						</div>
@@ -42,8 +44,8 @@
 							<label for="" class="font-weight-bold small">IBAN code</label>
 							<div class="row">
 								<div class="col">
-									<input type="number" class="form-control txt-md" id="email"
-										placeholder="Enter IBAN Code" name="email">
+									<input type="text" class="form-control txt-md" id="email"
+										placeholder="Enter IBAN Code" value="{{ $AdminBankDetail->iban_code ?? '' }}" name="iban_code">
 								</div>
 							</div>
 						</div>
@@ -51,8 +53,8 @@
 							<label for="" class="font-weight-bold small">SWIFT code</label>
 							<div class="row">
 								<div class="col">
-									<input type="number" class="form-control txt-md" id="email"
-										placeholder="Enter  Swift Code" name="email">
+									<input type="text" class="form-control txt-md" id="email"
+										placeholder="Enter  Swift Code" value="{{ $AdminBankDetail->swift_code ?? '' }}" name="swift_code">
 								</div>
 							</div>
 						</div>
@@ -61,18 +63,18 @@
 							<div class="row">
 								<div class="col">
 									<input type="number" class="form-control txt-md" id="email"
-										placeholder="Enter Account Number" name="email">
+										placeholder="Enter Account Number" value="{{ $AdminBankDetail->account_number ?? '' }}" name="account_number">
 								</div>
 							</div>
 						</div>
 						
 						<div class="row mt-5">
-							<a href="#" class="btn btn-primary btn-icon-split shadow ml-auto">
+							<button type="submit" href="#" class="btn btn-primary btn-icon-split shadow ml-auto">
 								<span class="icon txt-sm text-white-50">
 									<i class="fas fa-check-double"></i>
 								</span>
-								<span class="txt-sm text">Send</span>
-							</a>
+								<span class="txt-sm text">Save</span>
+							</button>
 						</div>
 					</form>
 				</div>

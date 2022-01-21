@@ -66,6 +66,22 @@
 									</a>
 									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
 										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#editPlan{{ $plan['id'] }}">Edit</a>
+										@if ($plan['status'] == 'Active')
+										<form action="{{ route('admin.plan.deactivate', $plan['id']) }}" method="POST">
+											@csrf
+											<button type="submit" class="dropdown-item" href="#">Deactivate</button>
+										</form>
+										@elseif ($plan['status'] == "Inactive")
+										<form action="{{ route('admin.plan.activate', $plan['id']) }}" method="POST">
+											@csrf
+											<button type="submit" class="dropdown-item" href="#">Activate</button>
+										</form>
+										@endif
+										<form action="{{ route('admin.plan.delete', $plan['id']) }}" method="POST">
+											@csrf
+											@method('DELETE')
+											<button type="submit" class="dropdown-item" href="#">Delete</button>
+										</form>
 									</div>
 								</div>
 							</td>
@@ -177,7 +193,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('admin.plan.create') }}" method="POST">
+				<form action="{{ route('admin.plan.update', $plan['id']) }}" method="POST">
 					@csrf
 					<div class="mb-3">
 						<label for="" class="font-weight-bold small">Plan Name:</label>
@@ -193,7 +209,7 @@
 						<div class="row">
 							<div class="col">
 								<input type="text" class="form-control txt-md" id="name"
-									placeholder="Enter Percentage" name="daily_percentage">
+									placeholder="Enter Percentage" value="{{ $plan['daily_percentage'] }}" name="daily_percentage">
 							</div>
 						</div>
 					</div>
@@ -202,12 +218,12 @@
 							<div class="col">
 								<label for="" class="font-weight-bold small">Minimum Amount:</label>
 								<input type="text" class="form-control txt-md" id="name"
-									placeholder="Enter Minimum Investment Amount" name="min_amount">
+									placeholder="Enter Minimum Investment Amount" value="{{ $plan['min_amount'] }}" name="min_amount">
 							</div>
 							<div class="col">
 								<label for="" class="font-weight-bold small">Maximum Amount:</label>
 								<input type="text" class="form-control txt-md" id="name"
-									placeholder="Enter Maximum Investment Amount" name="max_amount">
+									placeholder="Enter Maximum Investment Amount" value="{{ $plan['max_amount'] }}" name="max_amount">
 							</div>
 						</div>
 					</div>
@@ -216,7 +232,7 @@
 						<div class="row">
 							<div class="col">
 								<input type="text" class="form-control txt-md" id="name"
-									placeholder="Enter Investment Duration" name="plan_duration">
+									placeholder="Enter Investment Duration" value="{{ $plan['plan_duration'] }}" name="plan_duration">
 							</div>
 						</div>
 					</div>
@@ -225,12 +241,12 @@
 							<div class="col">
 								<label for="" class="font-weight-bold small">Referral Percentage:</label>
 								<input type="text" class="form-control txt-md" id="name"
-									placeholder="Enter Referal Percentage" name="referral_percentage">
+									placeholder="Enter Referal Percentage" value="{{ $plan['referral_percentage'] }}" name="referral_percentage">
 							</div>
 							<div class="col">
 								<label for="" class="font-weight-bold small">Bonus Percentage:</label>
 								<input type="text" class="form-control txt-md" id="name"
-									placeholder="Enter Bonus Percentage" name="bonus_percentage">
+									placeholder="Enter Bonus Percentage" value="{{ $plan['bonus_percentage'] }}" name="bonus_percentage">
 							</div>
 						</div>
 					</div>

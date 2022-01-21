@@ -15,6 +15,7 @@ use App\Models\Plan;
 use App\Models\TradeHistory;
 use App\Models\Message;
 use App\Models\Transfer;
+use App\Models\AdminBankDetail;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -147,7 +148,8 @@ class AdminController extends Controller
 	}
 
 	public function showBankTransferPage(){
-		return view('admin.bank-transfer');
+		$AdminBankDetail = AdminBankDetail::first();
+		return view('admin.bank-transfer')->with('AdminBankDetail', $AdminBankDetail);
 	}
 
 	public function showDepositLogsPage(){
@@ -201,7 +203,8 @@ class AdminController extends Controller
 	}
 
 	public function showReferalEarningsPage(){
-		return view('admin.referal-earnings');
+		$users = User::all();
+		return view('admin.referal-earnings')->with('users', $users);
 	}
 
 	public function showBlogArticlesPage(){
@@ -333,7 +336,14 @@ class AdminController extends Controller
 
 	// FUnction to approve deposit
 	public function approveDeposit($id){
-		Deposit::where('id', $id)->update(['status' => 'Active']);
+		Deposit::where('id', $id)->update(['status' => 'Confirmed']);
+
+		$deposit_record = Deposit::where('id', $id)->first();
+
+		$present_balance = User::where('id', $deposit_record->user->id)->first();
+
+		// Add Amount to user balance
+		User::where('id', $deposit_record->user->id)->update(['balance' => $present_balance + $deposit_record->amount]);
 
 		return redirect()->route('admin.deposit-logs');
 	}
@@ -374,11 +384,176 @@ class AdminController extends Controller
 		return redirect()->route('admin.tickets');
 	}
 
-	// Function to close ticket
+	// Function to delete ticket
 	public function deleteTicket($id){
 		$ticket = Ticket::find($id);
 		$ticket->delete();
 
 		return redirect()->route('admin.tickets');
+	}
+
+	// Function to delete deposit method
+	public function deleteDepositMethod($id){
+		$depositMethod = DepositMethod::find($id);
+		$depositMethod->delete();
+
+		return redirect()->route('admin.payment-gateways');
+	}
+
+	// Function to activate deposit method
+	public function activateDepositMethod($id){
+		DepositMethod::where('id', $id)->update(['status' => 'Active']);
+
+		return redirect()->route('admin.payment-gateways');
+	}
+
+	// Function to deactivate deposit method
+	public function deactivateDepositMethod($id){
+		DepositMethod::where('id', $id)->update(['status' => 'Inactive']);
+
+		return redirect()->route('admin.payment-gateways');
+	}
+
+	// Function to update deposit method
+	public function updateDepositMethod(Request $request, $id){
+		DepositMethod::where('id', $id)->update([
+			'name' => $request->input('name'),
+			'display_name' => $request->input('display_name'),
+			'min' => $request->input('min_amount'),
+			'max' => $request->input('max_amount'),
+			'fixed_charge_amount' => $request->input('charge_amount'),
+			'percentage_charge' => $request->input('charge_percentage'),
+			'method_address' => $request->input('method_address'),
+		]);
+
+		return redirect()->route('admin.payment-gateways');
+	}
+
+	// Function to save admin bank details
+	public function saveAdminBankDetail(Request $request){
+		$AdminBankDetail = AdminBankDetail::first();
+
+		if($AdminBankDetail){
+			// Exiting details, so update
+			$record_id = $AdminBankDetail->id;
+
+			AdminBankDetail::where('id', $record_id)->update([
+				'admin_id' => $request->input('admin_id'),
+				'bank_name' => $request->input('bank_name'),
+				'bank_address' => $request->input('bank_address'),
+				'iban_code' => $request->input('iban_code'),
+				'swift_code' => $request->input('swift_code'),
+				'account_number' => $request->input('account_number'),
+			]);
+		}else{
+			AdminBankDetail::create([
+				'admin_id' => $request->input('admin_id'),
+				'bank_name' => $request->input('bank_name'),
+				'bank_address' => $request->input('bank_address'),
+				'iban_code' => $request->input('iban_code'),
+				'swift_code' => $request->input('swift_code'),
+				'account_number' => $request->input('account_number'),
+			]);
+		}
+
+		return redirect()->route('admin.bank-transfer');
+	}
+	
+	// function to delete payout method
+	public function deletePayoutMethod($id){
+		$WithdrawalMethod = WithdrawalMethod::find($id);
+		$WithdrawalMethod->delete();
+
+		return redirect()->route('admin.payout-methods');
+	}
+
+	// Function to deactivate payout method
+	public function deactivatePayoutMethod($id){
+		WithdrawalMethod::where('id', $id)->update(['status' => 'Inactive']);
+
+		return redirect()->route('admin.payout-methods');
+	}
+
+	// Function to activate payout method
+	public function activatePayoutMethod($id){
+		WithdrawalMethod::where('id', $id)->update(['status' => 'Active']);
+
+		return redirect()->route('admin.payout-methods');
+	}
+
+	// Function to delete withrawal record
+	public function deletePayoutLog($id){
+		$Withdrawal = Withdrawal::find($id);
+		$Withdrawal->delete();
+
+		return redirect()->route('admin.payout-logs');
+	}
+
+	// Function to delete an open trade record
+	public function deleteOpenTrade($id){
+		$TradeHistory = TradeHistory::find($id);
+		$TradeHistory->delete();
+
+		return redirect()->route('admin.open-trades');
+	}
+
+	// Function to delete a closed trade record
+	public function deleteTrade($id){
+		$TradeHistory = TradeHistory::find($id);
+		$TradeHistory->delete();
+
+		return redirect()->route('admin.open-trades');
+	}
+
+	// Function activate plan record
+	public function activatePlan($id){
+		Plan::where('id', $id)->update(['status' => 'Active']);
+
+		return redirect()->route('admin.plans-settings');
+	}
+
+	// Function deactivate plan record
+	public function deactivatePlan($id){
+		Plan::where('id', $id)->update(['status' => 'Inactive']);
+
+		return redirect()->route('admin.plans-settings');
+	}
+
+	// Function to delete plan record
+	public function deletePlan($id){
+		$plan = Plan::find($id);
+		$plan->delete();
+
+		return redirect()->route('admin.plans-settings');
+	}
+
+	// Function activate coupon record
+	public function activateCoupon($id){
+		Coupon::where('id', $id)->update(['status' => 'Active']);
+
+		return redirect()->route('admin.coupons');
+	}
+
+	// Function deactivate coupon record
+	public function deactivateCoupon($id){
+		Coupon::where('id', $id)->update(['status' => 'Inactive']);
+
+		return redirect()->route('admin.coupons');
+	}
+
+	// Function to delete coupon record
+	public function deleteCoupon($id){
+		$coupon = Coupon::find($id);
+		$coupon->delete();
+
+		return redirect()->route('admin.coupons');
+	}
+
+	//Function to delete transfer record
+	public function deleteTransferRecord($id){
+		$transfer = Transfer::find($id);
+		$transfer->delete();
+
+		return redirect()->route('admin.transfer-logs');
 	}
 }

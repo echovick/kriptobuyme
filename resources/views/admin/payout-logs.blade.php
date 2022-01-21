@@ -56,7 +56,11 @@
 										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
+										<form action="{{ route('admin.payout-log.delete', $withdrawal['id']) }}" method="POST">
+											@csrf
+											@method('DELETE')
+											<button type="submit" class="dropdown-item" href="#">Delete</button>
+										</form>
 									</div>
 								</div>
 							</td>

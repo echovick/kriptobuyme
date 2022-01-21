@@ -43,7 +43,7 @@
 						<tr>
 							<td>{{ $withdrawalmethod['id'] }}</td>
 							<td>{{ $withdrawalmethod['name'] }}</td>
-							<td><span class="badge badge-{{ $withdrawalmethod['status'] == 'Active' ? 'success' : warning }} p-2">{{ $withdrawalmethod['status'] }}</span></td>
+							<td><span class="badge badge-{{ $withdrawalmethod['status'] == 'Active' ? 'success' : 'warning' }} p-2">{{ $withdrawalmethod['status'] }}</span></td>
 							<td>{{ $withdrawalmethod['created_at'] }}</td>
 							<td>{{ $withdrawalmethod['updated_at'] }}</td>
 							<td>
@@ -53,7 +53,22 @@
 										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Disable</a>
+										@if ($withdrawalmethod['status'] == 'Active')
+										<form action="{{ route('admin.payout-method.deactivate', $withdrawalmethod['id']) }}" method="POST">
+											@csrf
+											<button type="submit" class="dropdown-item" href="#">Deactivate</button>
+										</form>
+										@elseif ($withdrawalmethod['status'] == "Inactive")
+										<form action="{{ route('admin.payout-method.activate', $withdrawalmethod['id']) }}" method="POST">
+											@csrf
+											<button type="submit" class="dropdown-item" href="#">Activate</button>
+										</form>
+										@endif
+										<form action="{{ route('admin.payout-method.delete', $withdrawalmethod['id']) }}" method="POST">
+											@csrf
+											@method('DELETE')
+											<button type="submit" class="dropdown-item" href="#">Delete</button>
+										</form>
 									</div>
 								</div>
 							</td>

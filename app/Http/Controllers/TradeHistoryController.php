@@ -69,11 +69,13 @@ class TradeHistoryController extends Controller
 		// Get referrer and update referer bonus is available
 		$referer = auth()->user()->referer;
 
+		$referral_percentage = $plan->referral_percentage;
+
 		if(!empty($referer)){
 			$referral_percentage = ($referral_percentage / 100) * $amount;
 			$referal_bonus = User::where('id', $referer)->first('referal_bonus');
 			User::where('id', $referer)->update([
-				'referal_bonus' => $referal_bonus + $referral_percentage,
+				'referal_bonus' => $referal_bonus['referal_bonus'] + $referral_percentage,
 			]);
 		}
 

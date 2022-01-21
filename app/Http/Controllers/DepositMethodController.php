@@ -43,15 +43,15 @@ class DepositMethodController extends Controller
 			'max' => $request->input('max_amount'),
 			'fixed_charge_amount' => $request->input('charge_amount'),
 			'percentage_charge' => $request->input('charge_percentage'),
-			'status' => 'Inactive',
+			'status' => 'Active',
 			'method_address' => $request->input('method_address'),
 		]);
 
-		AuditLog::create([
-			'user_id' => auth()->user()->id,
-			'reference_id' => 'AUD' . $ref_id,
-			'log' => 'New Deposit Method Created. '. $request->input('display_name'),
-		]);
+		// AuditLog::create([
+		// 	'user_id' => $request->input('user_id'),
+		// 	'reference_id' => 'AUD' . $ref_id,
+		// 	'log' => 'New Deposit Method Created. '. $request->input('display_name'),
+		// ]);
 
 
 		return redirect()->route('admin.payment-gateways', ['action' => 'successfull']);

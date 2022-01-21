@@ -28,6 +28,20 @@
 			background:none !important;
 			border:none !important; 
 		}
+		.bg-primary, .bg-gradient-primary, .btn-primary, .badge-primary{
+			background: #996515 !important;
+			border: #996515;
+		}
+		.text-primary{
+			color:#996515 !important;
+		}
+		.page-link{
+			background: #996515 !important;
+		}
+		.border-left-primary{
+			border-left-color: #996515 !important;
+		}
+	
 	</style>
 
 	<body id="page-top">

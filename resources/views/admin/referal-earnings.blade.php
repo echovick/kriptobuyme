@@ -1,3 +1,7 @@
+@php
+use App\Models\User;
+use App\Models\TradeHistory;
+@endphp
 @extends('layouts.admin')
 
 @section('content')
@@ -30,30 +34,33 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
-						<tr>
-							<td>1</td>
-							<td>$100</td>
-							<td>kelennamdi07</td>
-							<td>kelennamdi07</td>
-							<td>Starter Plan</td>
-							<td>2021/12/19 06:24:PM</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>$100</td>
-							<td>kelennamdi07</td>
-							<td>kelennamdi07</td>
-							<td>Starter Plan</td>
-							<td>2021/12/19 06:24:PM</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>$100</td>
-							<td>kelennamdi07</td>
-							<td>kelennamdi07</td>
-							<td>Starter Plan</td>
-							<td>2021/12/19 06:24:PM</td>
-						</tr>
+						@foreach ($users as $user)
+							@php
+							$referer = $user['referer'];
+							@endphp		
+							@if($referer !== 0)
+								{{-- user has referer, get referer --}}
+								@php
+								$this_user = User::where('id', $referer)->first();
+								$username = $this_user->username;
+								$trades = TradeHistory::where('user_id', $user['id'])->get();
+								@endphp
+								@foreach ($trades as $trade)
+								@php
+									$referral_percentage = $trade->plan->referral_percentage;
+									$referal_amount = ($referral_percentage / 100) * $trade['amount'];
+								@endphp
+								<tr>
+									<td>{{ $trade['id'] }}</td>
+									<td>${{ $referal_amount }}</td>
+									<td>{{ $username }}</td>
+									<td>{{ $trade->user->username }}</td>
+									<td>{{ $trade->plan->plan_name }}</td>
+									<td>{{ $trade['created_at'] }}</td>
+								</tr>
+								@endforeach
+							@endif 
+						@endforeach
 					</tbody>
 				</table>
 			</div>

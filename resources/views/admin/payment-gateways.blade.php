@@ -47,7 +47,31 @@
 								<td><span class="badge {{ $depositMethod->status == 'Active' ? 'badge-primary' : 'badge-danger'  }} badge-primary p-2">{{ $depositMethod->status }}</span></td>
 								<td>{{ $depositMethod->updated_at }}</td>
 								<td>
-									<a href="#" data-toggle="modal" data-target="#addDepositMethod{{ $depositMethod['id'] }}">Edit</a>
+									<div class="dropdown no-arrow">
+										<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+											<button type="submit" class="dropdown-item" href="#" data-toggle="modal" data-target="#addDepositMethod{{ $depositMethod['id'] }}">Edit</button>
+											<form action="{{ route('admin.depositmethod.delete', $depositMethod['id']) }}" method="POST">
+												@csrf
+												@method('DELETE')
+												<button type="submit" class="dropdown-item" href="#">Delete</button>
+											</form>
+											@if ($depositMethod['status'] == 'Active')
+											<form action="{{ route('admin.depositmethod.deactivate', $depositMethod['id']) }}" method="POST">
+												@csrf
+												<button type="submit" class="dropdown-item" href="#">Deactivate</button>
+											</form>
+											@elseif ($depositMethod['status'] == 'Inactive')
+											<form action="{{ route('admin.depositmethod.activate', $depositMethod['id']) }}" method="POST">
+												@csrf
+												<button type="submit" class="dropdown-item" href="#">Activate</button>
+											</form>
+											@endif
+										</div>
+									</div>
 								</td>
 							</tr>
 						@endforeach
@@ -70,6 +94,7 @@
 			<div class="modal-body">
 				<form action="{{ route('deposit-method.create') }}" method="POST">
 					@csrf
+					<input type="text" name="user_id" value="{{ auth()->user()->id }}" hidden>
 					<div class="mb-3">
 						<label for="" class="font-weight-bold small">Name:</label>
 						<div class="row">
@@ -159,7 +184,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('deposit-method.create') }}" method="POST">
+				<form action="{{ route('admin.deposit-method.update', $depositMethod['id']) }}" method="POST">
 					@csrf
 					<div class="mb-3">
 						<label for="" class="font-weight-bold small">Name:</label>
@@ -218,15 +243,6 @@
 							<div class="col">
 								<input type="text" class="form-control txt-md" id="email"
 									value="{{ $depositMethod['method_address'] }}" name="method_address">
-							</div>
-						</div>
-					</div>
-					<div class="mb-3">
-						<label for="" class="font-weight-bold small">Status:</label>
-						<div class="row">
-							<div class="col">
-								<input type="radio" name="status" value="Active"><span class="small mb-3 mr-3" {{ $depositMethod['status'] == 'Active' ? 'checked' : '' }}>Active</span>
-								<input type="radio" name="status" value="Inactive"><span class="small mb-3 mr-3" {{ $depositMethod['status'] == 'Inactive' ? 'checked' : '' }}>Inactive</span>
 							</div>
 						</div>
 					</div>

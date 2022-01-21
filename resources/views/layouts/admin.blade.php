@@ -7,7 +7,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>User Dashboard</title>
+		<title>Admin Dashboard</title>
 
 		<!-- Custom fonts for this template-->
 		<link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -19,7 +19,21 @@
 
 		<!-- Custom styles for page -->
 		<link href="{{ asset('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-
+		<style>
+			.bg-primary, .bg-gradient-primary, .btn-primary, .badge-primary{
+				background: #996515 !important;
+				border: #996515;
+			}
+			.text-primary{
+				color:#996515 !important;
+			}
+			.page-link{
+				background: #996515 !important;
+			}
+			.border-left-primary{
+				border-left-color: #996515 !important;
+			}
+		</style>
 	</head>
 
 	<body id="page-top">
@@ -132,7 +146,7 @@
 					<div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 						<div class="bg-white py-2 collapse-inner rounded">
 							<a class="collapse-item {{ request()->is('admin/transfer-logs') ? 'active' : '' }}" href="{{ route('admin.transfer-logs') }}" href="{{ route('admin.transfer-logs') }}">Transfer Logs</a>
-							<a class="collapse-item {{ request()->is('admin/referal-earnings') ? 'active' : '' }}" href="{{ route('admin.open-trades') }}" href="{{ route('admin.referal-earnings') }}">Referral Earnings</a>
+							<a class="collapse-item {{ request()->is('admin/referal-earnings') ? 'active' : '' }}" href="{{ route('admin.referal-earnings') }}" href="{{ route('admin.referal-earnings') }}">Referral Earnings</a>
 						</div>
 					</div>
 				</li>

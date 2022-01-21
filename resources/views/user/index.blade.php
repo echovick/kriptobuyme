@@ -8,7 +8,10 @@
 				<div class="card-header py-3">
 					<h6 class="m-0 font-weight-bold text-primary text-center">Total Statistics</h6>
 					<div class="text-center mt-4">
-						<p class="small"><i class="fas fa-google-wallet mr-1"></i> Received<br>
+						<p class="small"><i class="fab fa-google-wallet mr-1"></i>Account Balance<br>
+							<span class="text-lg font-weight-bold">USD {{ number_format($account_balance) }}</span>
+						</p>
+						<p class="small"><i class="fab fa-google-wallet mr-1"></i>Total Received<br>
 							<span class="text-lg font-weight-bold">USD {{ number_format($total_deposit) }}</span>
 						</p>
 					</div>
@@ -20,14 +23,6 @@
 						</div>
 						<div class="col-6 text-right text-primary">
 							USD {{ number_format($pending_deposit) }}
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-6">
-							Total
-						</div>
-						<div class="col-6 text-right text-primary">
-							USD {{ number_format($total_deposit) }}
 						</div>
 					</div>
 				</div>

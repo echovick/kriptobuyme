@@ -47,6 +47,9 @@ Route::prefix('dashboard')->group(function() {
 		// get referal amount
 		$referal_total = auth()->user()->referal_bonus;
 
+		// get account balance
+		$account_balance = auth()->user()->balance;
+
 		// get trading bonus
 		$trading_bonus = auth()->user()->trading_bonus;
 
@@ -92,6 +95,7 @@ Route::prefix('dashboard')->group(function() {
 			'trading_bonus' => $trading_bonus,
 			'trades' => $trades,
 			'top_earners' => $top_earners,
+			'account_balance' => $account_balance
 		]);
 	})->middleware(['auth'])->name('dashboard');
 
@@ -174,6 +178,7 @@ Route::prefix('admin')->group(function() {
 	Route::post('/payment-gateways', [App\Http\Controllers\DepositMethodController::class, 'store'])->name('deposit-method.create');
 	Route::post('/payout-methods', [App\Http\Controllers\WithdrawalMethodController::class, 'store'])->name('payout-method.create');
 	Route::post('/plans-settings', [App\Http\Controllers\PlanController::class, 'store'])->name('admin.plan.create');
+	Route::post('/plans-setting/{id}/update', [App\Http\Controllers\PlanController::class, 'update'])->name('admin.plan.update');
 	Route::post('/customer/{id}/update', [App\Http\Controllers\Auth\AdminController::class, 'updateCustomer'])->name('admin.customers.update');
 	Route::post('/send-mail/{id}/send', [App\Http\Controllers\Auth\AdminController::class, 'customerMailer'])->name('admin.customer.send-mail');
 	Route::post('/customer/{id}/block', [App\Http\Controllers\Auth\AdminController::class, 'blockCustomer'])->name('admin.customer.block');
@@ -186,5 +191,25 @@ Route::prefix('admin')->group(function() {
 	Route::post('/ticket/{id}/open', [App\Http\Controllers\Auth\AdminController::class, 'openTicket'])->name('admin.ticket.open');
 	Route::post('/ticket/{id}/close', [App\Http\Controllers\Auth\AdminController::class, 'closeTicket'])->name('admin.ticket.close');
 	Route::delete('/ticket/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteTicket'])->name('admin.ticket.delete');
-	
+	Route::delete('/payment-gateways/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteDepositMethod'])->name('admin.depositmethod.delete');
+	Route::post('/payment-gateways/{id}/activate', [App\Http\Controllers\Auth\AdminController::class, 'activateDepositMethod'])->name('admin.depositmethod.activate');
+	Route::post('/payment-gateways/{id}/deactivate', [App\Http\Controllers\Auth\AdminController::class, 'deactivateDepositMethod'])->name('admin.depositmethod.deactivate');
+	Route::post('/payment-gateways/{id}/update', [App\Http\Controllers\Auth\AdminController::class, 'updateDepositMethod'])->name('admin.deposit-method.update');
+	Route::post('/bank-transfer', [App\Http\Controllers\Auth\AdminController::class, 'saveAdminBankDetail'])->name('admin.bank-transfer.save');
+	Route::post('/payout-method/{id}/activate', [App\Http\Controllers\Auth\AdminController::class, 'activatePayoutMethod'])->name('admin.payout-method.activate');
+	Route::post('/payout-method/{id}/deactivate', [App\Http\Controllers\Auth\AdminController::class, 'deactivatePayoutMethod'])->name('admin.payout-method.deactivate');
+	Route::delete('/payout-method/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deletePayoutMethod'])->name('admin.payout-method.delete');
+	Route::delete('/payout-log/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deletePayoutLog'])->name('admin.payout-log.delete');
+	Route::delete('/trade/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteTrade'])->name('admin.trade.delete');
+	Route::post('/plan/{id}/activate', [App\Http\Controllers\Auth\AdminController::class, 'activatePlan'])->name('admin.plan.activate');
+	Route::post('/plan/{id}/deactivate', [App\Http\Controllers\Auth\AdminController::class, 'deactivatePlan'])->name('admin.plan.deactivate');
+	Route::delete('/plan/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deletePlan'])->name('admin.plan.delete');
+	Route::post('/coupons', [App\Http\Controllers\CouponController::class, 'store'])->name('admin.coupon.create');
+
+	Route::post('/coupon/{id}/update', [App\Http\Controllers\CouponController::class, 'update'])->name('admin.coupon.update');
+	Route::post('/coupon/{id}/activate', [App\Http\Controllers\Auth\AdminController::class, 'activateCoupon'])->name('admin.coupon.activate');
+	Route::post('/coupon/{id}/deactivate', [App\Http\Controllers\Auth\AdminController::class, 'deactivateCoupon'])->name('admin.coupon.deactivate');
+	Route::delete('/coupon/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteCoupon'])->name('admin.coupon.delete');
+
+	Route::delete('/transfer-log/{id}/delete', [App\Http\Controllers\Auth\AdminController::class, 'deleteTransferRecord'])->name('admin.transfer.delete');
 });
