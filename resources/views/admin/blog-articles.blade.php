@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row ml-2 mb-3">
-		<a href="#" class="btn btn-primary btn-icon-split shadow">
+		<a href="{{ route('admin.blog-article.create') }}" class="btn btn-primary btn-icon-split shadow">
 			<span class="icon txt-sm text-white-50">
 				<i class="fas fa-plus"></i>
 			</span>
@@ -43,14 +43,15 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($articles as $article)
 						<tr>
-							<td>1</td>
-							<td>Budget for Your Winter Trip to Cancun</td>
-							<td>Inspiration</td>
-							<td>11</td>
-							<td><span class="badge badge-success p-2">Published</span></td>
-							<td>2020/06/12 08:03:AM	</td>
-							<td>2020/06/12 08:03:AM	</td>
+							<td>{{ $article['id'] }}</td>
+							<td>{{ $article['blog_title'] }}</td>
+							<td>{{ $article->category->category_name }}</td>
+							<td>{{ $article['views'] }}</td>
+							<td><span class="badge badge-{{ $article['status'] == 'Published' ? 'success' : 'danger' }} p-2">{{ $article['status'] }}</span></td>
+							<td>{{ $article['created_at'] }}</td>
+							<td>{{ $article['updated_at'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -64,51 +65,8 @@
 									</div>
 								</div>
 							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Budget for Your Winter Trip to Cancun</td>
-							<td>Inspiration</td>
-							<td>11</td>
-							<td><span class="badge badge-success p-2">Published</span></td>
-							<td>2020/06/12 08:03:AM	</td>
-							<td>2020/06/12 08:03:AM	</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Unpublish</a>
-										<a class="dropdown-item" href="#">Edit</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Budget for Your Winter Trip to Cancun</td>
-							<td>Inspiration</td>
-							<td>11</td>
-							<td><span class="badge badge-success p-2">Published</span></td>
-							<td>2020/06/12 08:03:AM	</td>
-							<td>2020/06/12 08:03:AM	</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Unpublish</a>
-										<a class="dropdown-item" href="#">Edit</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+						</tr>	 
+						@endforeach
 					</tbody>
 				</table>
 			</div>

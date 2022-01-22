@@ -9,6 +9,21 @@ class BlogArticle extends Model
 {
 	use HasFactory;
 
+	
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array<int, string>
+	 */
+	protected $fillable = [
+		'blog_title',
+		'category_id',
+		'views',
+		'status',
+		'article_slug',
+		'content',
+	];
+
 	/**
 	 * Get the category that owns the BlogArticle
 	 *

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Routing\UrlGenerator;
 
 class RegisteredUserController extends Controller
 {
@@ -27,6 +28,8 @@ class RegisteredUserController extends Controller
 	{
 		$this->middleware('auth');
    }
+
+	protected $url;
 
 	/**
 	 * Display the registration view.
@@ -263,10 +266,65 @@ class RegisteredUserController extends Controller
 
 		// Check password
 		$password = $request->input('password');
-		$check_password = auth()->user()->password === Hash::make($request->input('password')) ? 'true' : 'false';
+		$confirm_password = $request->input('confirm_password');
+		if($password == $confirm_password){
+			// Password Match
+			User::where('id',$user_id)->update([
+				'password' => Hash::make($request->input('password')),
+			]);
+			return redirect()->route('user.settings', ['message' => 'successfull']);
+		}else{
+			return redirect()->route('user.settings', ['message' => 'password_mismatch']);
+		}
+	}
 
-		dd(Hash::make($request->input('password')));
+	// FUnction to upload image
+	public function uploadProfileImage(Request $request){
+		$validatedData = $request->validate([
+			'profile_image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+		]);
 
-		// $2y$10$z4h2CLggzgNclrlUSJQm9OtkVC7qfTah5LJnN3ZZ9kTiFvIVOU1rq
+		$name = $request->file('profile_image')->getClientOriginalName();
+		$newImageName = time() . '-' . $name;
+		
+      $path = $request->file('profile_image')->move(base_path('public\assets\img\profile'), $newImageName);
+
+		$user_id = auth()->user()->id;
+
+		User::where('id', $user_id)->update([
+			'profile_image' => $newImageName,
+		]);
+
+		return redirect()->route('user.settings');
+	}
+
+	// Function to upload document
+	public function uploadVerificcationDocument(Request $request){
+		$validatedData = $request->validate([
+			'identity_document' => 'required|image|mimes:jpg,png,jpeg,gif,svg,pdf,doc,docx|max:2048',
+		]);
+
+		$name = $request->file('identity_document')->getClientOriginalName();
+		$fileName = time() . '-' . $name;
+		
+      $path = $request->file('identity_document')->move(base_path('public\assets\user\verification'), $fileName);
+
+		$user_id = auth()->user()->id;
+
+		User::where('id', $user_id)->update([
+			'verification_document' => $fileName,
+		]);
+
+		return redirect()->route('user.settings');
+	}
+
+	// Function to delete account
+	public function deleteAccount(){
+		$user_id = auth()->user()->id;
+		$user = User::find($user_id);
+
+		$user->delete();
+
+		return redirect()->route('login');
 	}
 }

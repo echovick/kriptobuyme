@@ -35,7 +35,14 @@ class ArticleCategoryController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		$slug = str_replace(" ", "-", strtolower($request->input('name')));
+
+		ArticleCategory::create([
+			'category_name' => $request->input('name'),
+			'category_slug' => $slug,
+		]);
+
+		return redirect()->route('admin.blog-categories');
 	}
 
 	/**
@@ -67,9 +74,16 @@ class ArticleCategoryController extends Controller
 	 * @param  \App\Models\ArticleCategory  $articleCategory
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, ArticleCategory $articleCategory)
+	public function update(Request $request, $id)
 	{
-		//
+		$slug = str_replace(" ", "-", strtolower($request->input('name')));
+
+		ArticleCategory::where('id', $id)->update([
+			'category_name' => $request->input('name'),
+			'category_slug' => $slug,
+		]);
+
+		return redirect()->route('admin.blog-categories');	
 	}
 
 	/**
@@ -78,8 +92,11 @@ class ArticleCategoryController extends Controller
 	 * @param  \App\Models\ArticleCategory  $articleCategory
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(ArticleCategory $articleCategory)
+	public function destroy($id)
 	{
-		//
+		$ArticleCategory = ArticleCategory::find($id);
+
+		$ArticleCategory->delete();
+		return redirect()->route('admin.blog-categories');
 	}
 }

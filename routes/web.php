@@ -115,6 +115,7 @@ Route::prefix('dashboard')->group(function() {
 	Route::post('/ticket/{id}/close', [App\Http\Controllers\TicketController::class, 'close'])->name('user.ticket.close');
 
 	// POST Routes
+	Route::delete('/user/account/delete', [App\Http\Controllers\Auth\RegisteredUserController::class, 'deleteAccount'])->name('user.delete');
 	Route::post('/deposit/preview', [App\Http\Controllers\DepositController::class, 'create'])->name('user.deposit.preview');
 	Route::post('/plan/preview', [App\Http\Controllers\TradeHistoryController::class, 'create'])->name('user.invest.new');
 	Route::post('/deposit/complete', [App\Http\Controllers\DepositController::class, 'store'])->name('user.deposit.create');
@@ -124,6 +125,8 @@ Route::prefix('dashboard')->group(function() {
 	Route::post('/tickets', [App\Http\Controllers\TicketController::class, 'store'])->name('user.ticket.new');
 	Route::post('/settings', [App\Http\Controllers\Auth\RegisteredUserController::class, 'update'])->name('user.settings.update');
 	Route::post('/settings/changepassword', [App\Http\Controllers\Auth\RegisteredUserController::class, 'updatePassword'])->name('user.change-password');
+	Route::post('/settings/upload-profile-image', [App\Http\Controllers\Auth\RegisteredUserController::class, 'uploadProfileImage'])->name('user.upload.image');
+	Route::post('/settings/document-upload', [App\Http\Controllers\Auth\RegisteredUserController::class,'uploadVerificcationDocument'])->name('user.upload.verification');
 });
 
 // Admin Routes
@@ -172,9 +175,15 @@ Route::prefix('admin')->group(function() {
 	Route::get('/customer/{id}', [App\Http\Controllers\Auth\AdminController::class, 'editCustomer'])->name('admin.customers.edit');	
 	Route::get('/send-mail/{id}', [App\Http\Controllers\Auth\AdminController::class, 'customerSendMail'])->name('admin.customer.mail');	
 	Route::get('/ticket/{id}', [App\Http\Controllers\Auth\AdminController::class, 'editTicket'])->name('admin.tickets.edit');
-
+	Route::get('/blog-article/create', [App\Http\Controllers\Auth\AdminController::class, 'createArticle'])->name('admin.blog-article.create');
+       
 
 	// Admin Post Routes
+	Route::post('/settings/password/update', [App\Http\Controllers\Auth\AdminController::class, 'updatePassword'])->name('admin.password.update');
+	Route::post('/blog-article', [App\Http\Controllers\BlogArticleController::class, 'store'])->name('admin.blog-article.save');
+	Route::post('/blog-categories', [App\Http\Controllers\ArticleCategoryController::class, 'store'])->name('admin.blog-categories.create');
+	Route::post('/blog-categories/{id}/update', [App\Http\Controllers\ArticleCategoryController::class, 'update'])->name('admin.blog-categories.update');
+	Route::delete('/blog-category/{id}/delete', [App\Http\Controllers\ArticleCategoryController::class, 'destroy'])->name('admin.blog-categories.delete');
 	Route::post('/payment-gateways', [App\Http\Controllers\DepositMethodController::class, 'store'])->name('deposit-method.create');
 	Route::post('/payout-methods', [App\Http\Controllers\WithdrawalMethodController::class, 'store'])->name('payout-method.create');
 	Route::post('/plans-settings', [App\Http\Controllers\PlanController::class, 'store'])->name('admin.plan.create');

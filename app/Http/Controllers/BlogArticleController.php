@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BlogArticle;
+use App\Models\ArticleCategory;
 use Illuminate\Http\Request;
 
 class BlogArticleController extends Controller
@@ -24,7 +25,7 @@ class BlogArticleController extends Controller
 	 */
 	public function create()
 	{
-		//
+		// 
 	}
 
 	/**
@@ -35,7 +36,27 @@ class BlogArticleController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		//
+		// $request->validate([
+		// 	'featured_image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+		// ]);
+
+		// $name = $request->file('featured_image')->getClientOriginalName();
+		// $newImageName = time() . '-' . $name;
+		
+		// $request->file('featured_image')->move(base_path('public\assets\blog'), $newImageName);
+
+		// Create post slug
+		$slug = str_replace(" ", "-", strtolower($request->input('post_title')));
+
+		BlogArticle::create([
+			'blog_title' => $request->input('post_title'),
+			'article_slug' => $slug,
+			'content' => $request->input('post_content'),
+			'category_id' => $request->input('category_id'),
+			'status' => $request->input('status'),
+		]);
+
+		return redirect()->route('admin.blog-articles');
 	}
 
 	/**

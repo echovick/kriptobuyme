@@ -10,23 +10,24 @@
 					<h6 class="m-0 font-weight-bold text-primary">Create category</h6>
 				</div>
 				<div class="card-body">
-					<form>
+					<form action="{{ route('admin.blog-categories.create') }}" method="POST">
+						@csrf
 						<div class="mb-3">
 							<label for="" class="font-weight-bold small">Category</label>
 							<div class="row">
 								<div class="col">
 									<input type="text" class="form-control txt-md" id="email"
-										placeholder="Enter Category Name" name="email">
+										placeholder="Enter Category Name" name="name">
 								</div>
 							</div>
 						</div>
 						<div class="row mt-5">
-							<a href="#" class="btn btn-primary btn-icon-split shadow ml-auto">
+							<button type="submit" class="btn btn-primary btn-icon-split shadow ml-auto">
 								<span class="icon txt-sm text-white-50">
 									<i class="fas fa-check-double"></i>
 								</span>
 								<span class="txt-sm text">Save</span>
-							</a>
+							</button>
 						</div>
 					</form>
 				</div>
@@ -56,9 +57,10 @@
 						</tr>
 					</tfoot>
 					<tbody class="small">
+						@foreach ($categories as $category)
 						<tr>
-							<td>1</td>
-							<td>Inspiration</td>
+							<td>{{ $category['id'] }}</td>
+							<td>{{ $category['category_name'] }}</td>
 							<td>
 								<div class="dropdown no-arrow">
 									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -66,48 +68,64 @@
 										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
 									</a>
 									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Edit</a>
+										<a class="dropdown-item" href="#" data-toggle="modal" data-target="#editCategory{{ $category['id'] }}">Edit</a>
+										<form action="{{ route('admin.blog-categories.delete', $category['id']) }}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button type="submit" class="dropdown-item" href="#">Delete</button>
+										</form>
 									</div>
 								</div>
 							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Inspiration</td>
-							<td>
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Edit</a>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Inspiration</td>
-							<td class="">
-								<div class="dropdown no-arrow">
-									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-									</a>
-									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Edit</a>
-									</div>
-								</div>
-							</td>
-						</tr>
+						</tr>	 
+						@endforeach
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+
+@foreach ($categories as $category)
+<div class="modal fade" id="editCategory{{ $category['id'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title txt-md" id="exampleModalLabel">Add Deposit Method</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action="{{ route('admin.blog-categories.update', $category['id']) }}" method="POST">
+					@csrf
+					<div class="mb-3">
+						<label for="" class="font-weight-bold small">Name:</label>
+						<div class="row">
+							<div class="col">
+								<input type="text" class="form-control txt-md" id="name"
+									value="{{ $category['category_name'] }}" name="name">
+							</div>
+						</div>
+					</div>
+					<div class="row justify-content-between px-3 mt-5">
+						<button class="btn btn-primary btn-icon-split shadow" type="submit">
+							<span class="icon txt-sm text-white-50">
+								<i class="fas fa-check-double"></i>
+							</span>
+							<span class="txt-sm text">Save</span>
+						</button>
+						<button href="#" class="btn btn-danger btn-icon-split shadow" data-dismiss="modal">
+							<span class="icon txt-sm text-white-50">
+								<i class="fas fa-times"></i>
+							</span>
+							<span class="txt-sm text">Cancel</span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+@endforeach
 @endsection

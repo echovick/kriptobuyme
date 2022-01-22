@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\DepositMethod;
+use App\Models\Admin;
 use App\Models\WithdrawalMethod;
 use App\Models\User;
 use App\Models\Ticket;
@@ -16,7 +17,13 @@ use App\Models\TradeHistory;
 use App\Models\Message;
 use App\Models\Transfer;
 use App\Models\AdminBankDetail;
+use App\Models\ArticleCategory;
+use App\Models\BlogArticle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Password;
 
 class AdminController extends Controller
 {
@@ -208,11 +215,13 @@ class AdminController extends Controller
 	}
 
 	public function showBlogArticlesPage(){
-		return view('admin.blog-articles');
+		$BlogArticles = BlogArticle::all();
+		return view('admin.blog-articles')->with('articles', $BlogArticles);
 	}
 
 	public function showBlogCategoriesPage(){
-		return view('admin.blog-categories');
+		$ArticleCategories = ArticleCategory::all();
+		return view('admin.blog-categories')->with('categories', $ArticleCategories);
 	}
 
 	public function showSettingsPage(){
@@ -555,5 +564,36 @@ class AdminController extends Controller
 		$transfer->delete();
 
 		return redirect()->route('admin.transfer-logs');
+	}
+
+	// Function to return view to create a new artcle
+	public function createArticle(){
+		$ArticleCategories = ArticleCategory::all();
+		return view('admin.create-blog-article')->with('categories', $ArticleCategories);
+	}
+
+	// Function to update admin details
+	public function updatePassword(Request $request){
+		$admin_id = auth()->user()->id;
+
+		// Check password
+		$name = $request->input('name');
+		$password = $request->input('password');
+		$confirm_password = $request->input('conform_password');
+
+		Admin::where('id',$admin_id)->update(['name' => $name]);
+
+		// Check password
+		$password = $request->input('password');
+		$confirm_password = $request->input('confirm_password');
+		if(isset($password) && $password == $confirm_password){
+			// Password Match
+			Admin::where('id',$admin_id)->update([
+				'password' => Hash::make($request->input('password')),
+			]);
+			return redirect()->route('admin.settings', ['message' => 'successfull']);
+		}else{
+			return redirect()->route('admin.settings');
+		}
 	}
 }

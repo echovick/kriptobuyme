@@ -274,13 +274,14 @@
 					<h6 class="m-0 font-weight-bold text-primary">Security</h6>
 				</div>
 				<div class="card-body">
-					<form>
+					<form action="{{ route('admin.password.update') }}" method="POST">
+						@csrf
 						<div class="mb-3">
 							<label for="" class="font-weight-bold small">Username:</label>
 							<div class="row">
 								<div class="col">
 									<input type="text" class="form-control txt-md" id="email"
-										placeholder="Enter Username" name="email">
+										placeholder="Enter Username" value="{{ auth()->user()->name }}" name="name">
 								</div>
 							</div>
 						</div>
@@ -288,18 +289,27 @@
 							<label for="" class="font-weight-bold small">Password:</label>
 							<div class="row">
 								<div class="col">
-									<input type="password" class="form-control txt-md" id="email"
-										placeholder="Password" name="email">
+									<input type="password" class="form-control txt-md" id=""
+										placeholder="Enter Password" name="password">
+								</div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label for="" class="font-weight-bold small">Confirm Password:</label>
+							<div class="row">
+								<div class="col">
+									<input type="password" class="form-control txt-md" id=""
+										placeholder="Re-Type Password" name="confirm_password">
 								</div>
 							</div>
 						</div>
 						<div class="row mt-5">
-							<a href="#" class="btn btn-primary btn-icon-split shadow ml-auto">
+							<button type="submit" class="btn btn-primary btn-icon-split shadow ml-auto">
 								<span class="icon txt-sm text-white-50">
 									<i class="fas fa-check-double"></i>
 								</span>
 								<span class="txt-sm text">Save</span>
-							</a>
+							</button>
 						</div>
 					</form>
 				</div>

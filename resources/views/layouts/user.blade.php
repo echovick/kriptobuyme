@@ -41,7 +41,17 @@
 		.border-left-primary{
 			border-left-color: #996515 !important;
 		}
-	
+		.border-bottom-primary{
+			border-bottom-color: #996515 !important;
+		}
+		.btn-outline-primary{
+			border:1px solid #996515 !important;
+			color:#996515 !important;
+		}
+		.btn-outline-primary:hover{
+			background: #996515 !important;
+			color:white !important;
+		}
 	</style>
 
 	<body id="page-top">
@@ -322,5 +332,12 @@
 
 		<!-- Page level custom scripts -->
 		<script src="{{ asset('assets/js/demo/datatables-demo.js') }}"></script>
+		<script>
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on("change", function() {
+			var fileName = $(this).val().split("\\").pop();
+			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+		});
+		</script>
 	</body>
 </html>
