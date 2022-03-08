@@ -17,7 +17,7 @@ class WithdrawalController extends Controller
 	 */
 	public function index()
 	{
-		// 
+		//
 	}
 
 	/**
@@ -45,16 +45,16 @@ class WithdrawalController extends Controller
 		$ref_id = time() . rand(10*45, 100*98);
 
 		// Get withdrawal charge
-		$charge = 0.1 * $request->input('amount'); 
+		$charge = 0.1 * $request->input('amount');
 
 		// Check withdrawl amount with user amount
 		$withdrawal_amount = $request->input('amount');
 		$withdrawal_type = $request->input('withdrawal_type');
 
 		switch($withdrawal_type){
-			case 'profit':
+			case "profit":
 				$user_profit = auth()->user()->profit;
-				if($user_profit < $withdrawal_amount){
+				if($user_profit < intval($withdrawal_amount)){
 					AuditLog::create([
 						'user_id' => auth()->user()->id,
 						'reference_id' => 'AUD' . $ref_id,
@@ -62,9 +62,10 @@ class WithdrawalController extends Controller
 					]);
 					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
 				}
-			case 'balance':
+                break;
+			case "balance":
 				$user_balance = auth()->user()->balance;
-				if($user_balance < $withdrawal_amount){
+				if($user_balance < intval($withdrawal_amount)){
 					AuditLog::create([
 						'user_id' => auth()->user()->id,
 						'reference_id' => 'AUD' . $ref_id,
@@ -72,9 +73,10 @@ class WithdrawalController extends Controller
 					]);
 					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
 				}
-			case 'referal':
+                break;
+			case "referal":
 				$user_referal = auth()->user()->referal_bonus;
-				if($user_referal < $withdrawal_amount){
+				if($user_referal < intval($withdrawal_amount)){
 					AuditLog::create([
 						'user_id' => auth()->user()->id,
 						'reference_id' => 'AUD' . $ref_id,
@@ -82,6 +84,14 @@ class WithdrawalController extends Controller
 					]);
 					return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
 				}
+                break;
+            default:
+                AuditLog::create([
+                    'user_id' => auth()->user()->id,
+                    'reference_id' => 'AUD' . $ref_id,
+                    'log' => 'User Withdrwal Attempt Failed, Unexpected Error'
+                ]);
+                return redirect()->route('user.withdrawal', ['message' => 'insufficient_amount']);
 		}
 
 		Withdrawal::create([

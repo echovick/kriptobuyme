@@ -1,5 +1,6 @@
 @php
 use App\Models\Admin;
+use App\Models\User;
 @endphp
 @extends('layouts.admin')
 
@@ -25,17 +26,17 @@ use App\Models\Admin;
 								$timestamp = date_create($timestamp);
 
 								if($user_type == 'User'){
-									$user = Admin::find($user_id)->first();
+									$user = User::find($user_id);
 									$name = $user->username;
 								}else{
 									$name = auth()->user()->name;
 								}
 							@endphp
 							<li>
-								<a target="_blank" href="#" class="text">{{ strtoupper($name) }}</a>
+								<a target="_blank" href="#" class="text">{{ $name }}</a>
 								<a href="#" class="float-right small">{{ date_format($timestamp, 'D M, Y h:m a') }}</a>
 								<p class="txt-md">{{ $message }}</p>
-							</li>								
+							</li>
 							@endforeach
 						@endif
 					</ul>

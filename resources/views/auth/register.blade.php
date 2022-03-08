@@ -36,10 +36,10 @@
 		<link rel="alternate stylesheet" type="text/css" title="green" href="{{ asset('site/css/skins/green.css') }}" />
 		<link rel="alternate stylesheet" type="text/css" title="blue" href="{{ asset('site/css/skins/blue.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ asset('site/css/styleswitcher.css') }}" />
-		
+
 		<!-- Template JS Files -->
 		<script src="{{ asset('site/js/modernizr.js') }}"></script>
-		
+
 		{{-- CDN --}}
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
@@ -609,3 +609,4 @@
 	<!-- Mirrored from us.realstockfx.com/register by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 27 May 2021 00:30:02 GMT -->
 
 </html>
+

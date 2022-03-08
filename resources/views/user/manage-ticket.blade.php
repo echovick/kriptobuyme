@@ -25,14 +25,17 @@ use App\Models\User;
 								$timestamp = date_create($timestamp);
 
 								if($user_type == 'User'){
-									$user = User::find($user_id)->first();
+									$user = User::find($user_id);
+									$name = $user->username;
+								}else{
+									$name = 'Admin';
 								}
 							@endphp
 							<li>
-								<a target="_blank" href="#" class="text">{{ $user->username }}</a>
+								<a target="_blank" href="#" class="text">{{ $name }}</a>
 								<a href="#" class="float-right small">{{ date_format($timestamp, 'D M, Y h:m a') }}</a>
 								<p class="txt-md">{{ $message }}</p>
-							</li>								
+							</li>
 							@endforeach
 						@endif
 					</ul>

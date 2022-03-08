@@ -120,7 +120,7 @@
 						<label for="" class="font-weight-bold small">Daily Percentage:</label>
 						<div class="row">
 							<div class="col">
-								<input type="text" class="form-control txt-md" id="name"
+								<input type="number" class="form-control txt-md" id="name"
 									placeholder="Enter Percentage" name="daily_percentage">
 							</div>
 						</div>
@@ -129,21 +129,21 @@
 						<div class="row">
 							<div class="col">
 								<label for="" class="font-weight-bold small">Minimum Amount:</label>
-								<input type="text" class="form-control txt-md" id="name"
+								<input type="number" class="form-control txt-md" id="name"
 									placeholder="Enter Minimum Investment Amount" name="min_amount">
 							</div>
 							<div class="col">
 								<label for="" class="font-weight-bold small">Maximum Amount:</label>
-								<input type="text" class="form-control txt-md" id="name"
+								<input type="number" class="form-control txt-md" id="name"
 									placeholder="Enter Maximum Investment Amount" name="max_amount">
 							</div>
 						</div>
 					</div>
 					<div class="mb-3">
-						<label for="" class="font-weight-bold small">Plan Duration:</label>
+						<label for="" class="font-weight-bold small">Plan Duration (Days):</label>
 						<div class="row">
 							<div class="col">
-								<input type="text" class="form-control txt-md" id="name"
+								<input type="number" class="form-control txt-md" id="name"
 									placeholder="Enter Investment Duration" name="plan_duration">
 							</div>
 						</div>
@@ -151,13 +151,13 @@
 					<div class="mb-3">
 						<div class="row">
 							<div class="col">
-								<label for="" class="font-weight-bold small">Referral Percentage:</label>
-								<input type="text" class="form-control txt-md" id="name"
+								<label for="" class="font-weight-bold small">Referral Percentage (%):</label>
+								<input type="number" class="form-control txt-md" id="name"
 									placeholder="Enter Referal Percentage" name="referral_percentage">
 							</div>
 							<div class="col">
-								<label for="" class="font-weight-bold small">Bonus Percentage:</label>
-								<input type="text" class="form-control txt-md" id="name"
+								<label for="" class="font-weight-bold small">Bonus Percentage (%):</label>
+								<input type="number" class="form-control txt-md" id="name"
 									placeholder="Enter Bonus Percentage" name="bonus_percentage">
 							</div>
 						</div>

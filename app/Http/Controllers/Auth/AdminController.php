@@ -55,7 +55,7 @@ class AdminController extends Controller
 
 		// Get number of closed tickets
 		$closed_ticket = Ticket::where('status', 'Closed')->count();
-		
+
 		// Get number of published platform reviews
 		$published_platform_reviews = Review::where('status', 'Published')->count();
 
@@ -148,7 +148,7 @@ class AdminController extends Controller
 
 	public function showPaymentGatewaysPage(){
 		$depositMethods = DepositMethod::all();
-		
+
 		return view('admin.payment-gateways', [
 			'depositMethods' => $depositMethods,
 		]);
@@ -317,7 +317,7 @@ class AdminController extends Controller
 			'user' => $user,
 		]);
 	}
-	
+
 	// function to block customer
 	public function blockCustomer($id){
 		User::where('id', $id)->update([
@@ -349,7 +349,7 @@ class AdminController extends Controller
 
 		$deposit_record = Deposit::where('id', $id)->first();
 
-		$present_balance = User::where('id', $deposit_record->user->id)->first();
+		$present_balance = User::where('id', $deposit_record->user->id)->first()->balance;
 
 		// Add Amount to user balance
 		User::where('id', $deposit_record->user->id)->update(['balance' => $present_balance + $deposit_record->amount]);
@@ -467,7 +467,7 @@ class AdminController extends Controller
 
 		return redirect()->route('admin.bank-transfer');
 	}
-	
+
 	// function to delete payout method
 	public function deletePayoutMethod($id){
 		$WithdrawalMethod = WithdrawalMethod::find($id);
