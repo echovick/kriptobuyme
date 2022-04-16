@@ -2,7 +2,12 @@
 
 @section('content')
 <div class="container-fluid">
-	<div class="row">
+    @if (!auth()->user()->hasVerifiedEmail())
+    <div class="alert alert-info txt-md">
+        <i class="fas fa-info-circle txt-md mr-3"></i> An Email Verification Link has been sent to your email, please verify email to be able to perform operations on this account
+    </div>
+    @else
+    <div class="row">
 		<div class="col-lg-4">
 			<div class="card shadow mb-4 rounded-1">
 				<div class="card-header py-3">
@@ -115,7 +120,7 @@
 							<div class="card-body">
 								#{{ $trade['reference_id'] }} @ {{ $trade->plan->plan_name }} [{{ $trade['trade_profit'] }}USD/{{ ($trade['daily_percentage'] / 100 * $trade['amount']) * $trade['trade_duration'] }}USD]
 							</div>
-						</div>	 
+						</div>
 					@endforeach
 				</div>
 			</div>
@@ -149,12 +154,13 @@
 					<div class="d-flex mb-3">
 						<img class="img-profile rounded-circle w-100 col-3" src="../assets/img/undraw_profile.svg">
 						<p class="mr-2 d-none align-self-center d-lg-inline text-gray-600 small">{{ $top_earner['username'] }}<br>${{ number_format($top_earner['profit']) }}</p>
-					</div>	 
+					</div>
 					@endif
 					@endforeach
 				</div>
 			</div>
 		</div>
 	</div>
+    @endif
 </div>
 @endsection

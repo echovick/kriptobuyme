@@ -26,7 +26,7 @@
 	<style>
 		.logout {
 			background:none !important;
-			border:none !important; 
+			border:none !important;
 		}
 		.bg-primary, .bg-gradient-primary, .btn-primary, .badge-primary{
 			background: #996515 !important;
@@ -80,6 +80,7 @@
 				<!-- Divider -->
 				<hr class="sidebar-divider">
 
+                @if (auth()->user()->hasVerifiedEmail())
 				<!-- Heading -->
 				<div class="sidebar-heading">
 					Interface
@@ -151,6 +152,7 @@
 
 				<!-- Divider -->
 				<hr class="sidebar-divider">
+                @endif
 
 				<!-- Heading -->
 				<div class="sidebar-heading">
@@ -264,7 +266,7 @@
 					<!-- End of Topbar -->
 
 					<!-- Begin Page Content -->
-					
+
 					@yield('content')
 
 					<!-- /.container-fluid -->

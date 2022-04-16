@@ -18,7 +18,7 @@ use App\Models\Plan;
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Website Pages Route
 Route::get('/', [App\Http\Controllers\PagesController::class, 'index'])->name('home');
@@ -73,7 +73,7 @@ Route::prefix('dashboard')->group(function() {
 
 			if (strtotime($trade_end_date) < strtotime($current_date)) {
 				// Completed
-				
+
 				// Update trade history, user balance, profit, user referal bonus
 				TradeHistory::where('id',$active_trade->id)->update([
 					'status' => 'Completed',
@@ -134,7 +134,7 @@ Route::prefix('admin')->group(function() {
 	// Admin Login Routes
 	Route::get('/login', [App\Http\Controllers\Auth\AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 	Route::post('/login', [App\Http\Controllers\Auth\AdminLoginController::class, 'login'])->name('admin.login.submit');
-	
+
 	// Admin Logout Route
 	Route::get('logout/', [App\Http\Controllers\Auth\AdminLoginController::class, 'logout'])->name('admin.logout');
 
@@ -172,11 +172,11 @@ Route::prefix('admin')->group(function() {
 	Route::get('/social-links', [App\Http\Controllers\Auth\AdminController::class, 'showSocialLinksPage'])->name('admin.social-links');
 
 	// Edit
-	Route::get('/customer/{id}', [App\Http\Controllers\Auth\AdminController::class, 'editCustomer'])->name('admin.customers.edit');	
-	Route::get('/send-mail/{id}', [App\Http\Controllers\Auth\AdminController::class, 'customerSendMail'])->name('admin.customer.mail');	
+	Route::get('/customer/{id}', [App\Http\Controllers\Auth\AdminController::class, 'editCustomer'])->name('admin.customers.edit');
+	Route::get('/send-mail/{id}', [App\Http\Controllers\Auth\AdminController::class, 'customerSendMail'])->name('admin.customer.mail');
 	Route::get('/ticket/{id}', [App\Http\Controllers\Auth\AdminController::class, 'editTicket'])->name('admin.tickets.edit');
 	Route::get('/blog-article/create', [App\Http\Controllers\Auth\AdminController::class, 'createArticle'])->name('admin.blog-article.create');
-       
+
 
 	// Admin Post Routes
 	Route::post('/settings/password/update', [App\Http\Controllers\Auth\AdminController::class, 'updatePassword'])->name('admin.password.update');
